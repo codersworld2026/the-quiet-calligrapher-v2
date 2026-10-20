@@ -1,0 +1,8 @@
+# Files Vercel doesn't need to build the site (node_modules and .env files are skipped by default).
+# Anchored with "/" so public/video is still uploaded.
+/dist
+/.astro
+/.vscode
+/screenshots
+/video
+/client-photos

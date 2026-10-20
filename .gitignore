@@ -1,0 +1,30 @@
+# build output
+dist/
+# generated types
+.astro/
+
+# dependencies
+node_modules/
+
+# logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# environment variables (can opt-in for committing if needed)
+.env*
+
+# macOS-specific files
+.DS_Store
+
+# jetbrains setting folder
+.idea/
+.vercel
+
+# The GitHub repository is public: the client's original photos stay on this computer (only the folder's notes and the
+# name lettering the wordmark is traced from are committed). Screenshots are regenerated after every change.
+client-photos/*
+!client-photos/README.md
+!client-photos/aliya-name-lettering.png
+screenshots/

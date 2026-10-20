@@ -1,0 +1,33 @@
+---
+import quotePhoto from '../assets/images/artwork-emily-bronte-quote.png';
+import vowsPhoto from '../assets/images/wedding-vows.jpg';
+import ServiceSection from './ServiceSection.astro';
+---
+
+<ServiceSection
+  id="artwork"
+  title="Bespoke Calligraphy Artwork"
+  tone="cream"
+  photos={[
+    {
+      src: quotePhoto,
+      alt: '“Whatever our souls are made of, his and mine are the same” by Emily Brontë, hand-lettered in red Copperplate calligraphy on handmade paper with gold-leaf edges, beside a white rose on black satin.'
+    },
+    {
+      src: vowsPhoto,
+      alt: 'Wedding vows hand-lettered in black Copperplate calligraphy on textured white paper: “A song in my heart, a light in my day. I vow to cherish each breath from this day. Bound by this promise, our spirits have found their companion so true, forever and always, my love is for you.”'
+    }
+  ]}
+>
+  <p>
+    Bring your most treasured words to life with detailed, hand-lettered calligraphy crafted exclusively for you. Whether
+    you want to preserve your wedding vows, write out the lyrics to a favourite song by an artist who means the world to
+    you, celebrate a milestone anniversary, commemorate a graduation gift, or send heartfelt letters to loved ones for any
+    other special reason, every piece is custom-made.
+  </p>
+  <p>
+    To make your artwork truly one-of-a-kind, we can incorporate exquisite details such as hand-painted floral or
+    botanical borders, shimmering gold leaf edging, and any other creative requests you have in mind. Contact me below to
+    collaborate on your vision.
+  </p>
+</ServiceSection>

@@ -1,0 +1,44 @@
+---
+import workbooksPhoto from '../assets/images/copperplate-workbooks.jpg';
+import ServiceSection from './ServiceSection.astro';
+import { tones, type Tone } from './tones';
+
+const tone: Tone = 'green';
+const colours = tones[tone];
+
+// The workshop wording is the client's, from the original site. No dates or prices are published until she confirms them.
+const offers = [
+  {
+    name: 'Workshops',
+    text: 'Regular Copperplate calligraphy workshops at Birmingham’s historic Pen Museum, in the heart of the Jewellery Quarter — relaxed, beginner- and intermediate-friendly, with all materials provided.'
+  },
+  {
+    name: 'Digital Workbooks',
+    text: 'Explore a growing collection of digital download workbooks designed to take you from a beginner to an intermediate level and beyond, with new guides added regularly in the shop section. Featuring fun, themed seasonal workbooks to keep your lettering practice both engaging and progressive, these guides are available to download instantly so you can continue your calligraphy journey right from home.'
+  }
+];
+---
+
+{/* A "Shop Workbooks" button is left out until the shop's web address is confirmed. */}
+<ServiceSection
+  id="workshops"
+  title="Workshops & Workbooks"
+  tone={tone}
+  photos={[
+    {
+      src: workbooksPhoto,
+      alt: 'Three printed Copperplate workbooks fanned out on a wooden desk — the Copperplate Calligraphy Workbook, the Copperplate Calligraphy Capitals Workbook and Mindful Strokes — beside an ornate gold pen holder and a pot of ink.'
+    }
+  ]}
+>
+  <dl class="space-y-6">
+    {
+      offers.map(({ name, text }) => (
+        <div>
+          <dt class:list={['font-sans text-xs font-medium tracking-[0.2em] uppercase', colours.label]}>{name}</dt>
+          <dd class="mt-2">{text}</dd>
+        </div>
+      ))
+    }
+  </dl>
+</ServiceSection>

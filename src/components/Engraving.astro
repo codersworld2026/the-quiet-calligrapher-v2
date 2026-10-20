@@ -1,0 +1,94 @@
+---
+import candlePhoto from '../assets/images/engraved-candle-kayleigh.jpg';
+import compactPhoto from '../assets/images/engraved-compact-erica.jpg';
+import ServiceSection from './ServiceSection.astro';
+import { tones, type Tone } from './tones';
+
+const tone: Tone = 'green';
+const colours = tones[tone];
+
+const keepsakes = [
+  {
+    name: 'Keepsake Engraving',
+    text: 'Make a gift truly unforgettable. Perfume bottles and special keepsakes are hand-engraved and filled with rich gold, silver, or black wax.'
+  },
+  {
+    name: 'Live Event Favours',
+    text: 'I will be stationed on your wedding day to personally engrave favours for your guests, offering a memorable, interactive experience and a unique thank-you keepsake.'
+  }
+];
+
+const surfaces = [
+  {
+    title: 'Custom Glass & Mirror Engraving',
+    label: 'Permanent Hand Engraving',
+    text: 'Precision-crafted permanent engraving on perfume bottles, glassware, mirrors, and other hard surfaces, finished with an optional gold, silver, or black wax fill.'
+  },
+  {
+    title: 'Metal & Wood Engraving',
+    label: 'Bespoke Hard-Surface Engraving',
+    text: 'Elegant, permanent hand engraving tailored for metal keepsakes, compacts, wooden boxes, and luxury gift items.'
+  },
+  {
+    title: 'Hot Foiling on Leather Goods',
+    label: 'Personalised Gold & Silver Foil',
+    text: 'Stunning, heat-pressed foil lettering applied to leather goods such as journals, luggage tags, pouches, and wallets.'
+  },
+  {
+    title: 'Brush Marker & Paint Pen Personalisation',
+    label: 'Non-Engraved Surface Styling',
+    text: 'Hand-lettered customisation using high-quality brush markers and paint pens, perfect for fabrics, ribbons, and items that cannot be engraved.'
+  }
+];
+---
+
+<ServiceSection
+  id="engraving"
+  title="Surface Engraving & Personalisation"
+  tone={tone}
+  photos={[
+    {
+      src: compactPhoto,
+      alt: '“Erica” hand-engraved in silver Copperplate script across the lid of a black Chanel compact, resting on a white marble tray.',
+      crop: 'object-[50%_41%]'
+    },
+    {
+      src: candlePhoto,
+      alt: '“Kayleigh” hand-engraved in Copperplate script on the olive-green glass of a Gingerlily scented candle, resting on white satin.'
+    }
+  ]}
+>
+  <dl class="space-y-5">
+    {
+      keepsakes.map(({ name, text }) => (
+        <div>
+          <dt class:list={['font-sans text-xs font-medium tracking-[0.2em] uppercase', colours.label]}>{name}</dt>
+          <dd class="mt-2">{text}</dd>
+        </div>
+      ))
+    }
+  </dl>
+  <p>
+    Elevate your brand activations, product launches, and corporate functions with interactive, on-site personalisation
+    that leaves a lasting impression on your guests.
+  </p>
+
+  <ul slot="more" class="grid gap-x-16 gap-y-12 md:grid-cols-2 lg:gap-y-14">
+    {
+      surfaces.map(({ title, label, text }) => (
+        <li>
+          <h3 class="text-[1.625rem] leading-tight text-balance lg:text-[1.875rem]">{title}</h3>
+          <span class:list={['mt-4 block h-px w-10', colours.rule]} aria-hidden="true" />
+          <p
+            class:list={[
+              'mt-4 max-w-[34rem] text-lg leading-[1.65] font-medium text-pretty lg:text-[1.1875rem]',
+              colours.body
+            ]}
+          >
+            <strong class:list={['font-semibold', colours.strong]}>{label}:</strong> {text}
+          </p>
+        </li>
+      ))
+    }
+  </ul>
+</ServiceSection>

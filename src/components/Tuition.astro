@@ -1,0 +1,165 @@
+---
+import exemplarPhoto from '../assets/images/copperplate-capitals-exemplar.jpg';
+import practicePhoto from '../assets/images/mindful-words-practice-page.jpg';
+import ServiceSection from './ServiceSection.astro';
+import { tones, type Tone } from './tones';
+
+const tone: Tone = 'cream';
+const colours = tones[tone];
+const green = tones.green;
+
+// The client's tuition copy and prices, from the original site. Its supplies list, online setup requirements and
+// materials notes are for students who have booked, so they are left for the enquiry rather than the homepage.
+const includes = [
+  {
+    title: 'Dedicated 1-on-1 Live Sessions',
+    body: 'Private video instruction tailored entirely to your pace, hand pressure, and learning goals.'
+  },
+  {
+    title: 'Weekly Homework Reviews',
+    body: 'Submit photos or scans of your practice sheets between lessons for marked-up corrections and feedback on nib angle, slant, and letterform accuracy.'
+  },
+  {
+    title: 'Custom Exemplars & Worksheets',
+    body: 'Receive printable PDF guidelines calibrated specifically to 55° slant lines and appropriate x-heights for your specific nib setup.'
+  },
+  {
+    title: 'Troubleshooting Support',
+    body: 'Direct advice on ink consistency, paper feathering, nib selection, and holder adjustments so you never get stuck mid-practice.'
+  }
+];
+
+// Each programme runs online, at the studio or at home, so one card lists every way to take it.
+const programmes = [
+  {
+    name: 'Foundations Program',
+    duration: '4 Weeks',
+    forWhom: 'Ideal for complete beginners building correct technique, grip, and pressure control from day one.',
+    points: [
+      '4 Weeks of Dedicated Tuition (4 × 60-minute live sessions)',
+      'Weekly personalised homework review & live feedback',
+      'A focus on fundamental strokes, lowercase letters & grid generator guides'
+    ],
+    prices: [
+      { label: 'Online', note: 'Effective rate: £60/hr including homework feedback', price: '£240' },
+      { label: 'In-Studio', note: 'Studio located in Birmingham', price: '£280' },
+      { label: 'In-Home, Zone 1 (Up to 5 miles)', note: 'Includes travel & mobile setup', price: '£360' },
+      { label: 'In-Home, Zone 2 (5–12 miles)', note: 'Includes travel & mobile setup', price: '£400' },
+      {
+        label: 'In-Home, Zone 3 (12+ miles / 30+ mins)',
+        note: 'Calculated based on travel time, mileage, and peak travel hours',
+        price: 'Custom Quote'
+      }
+    ]
+  },
+  {
+    name: 'Script Mastery Program',
+    duration: '6 Weeks',
+    forWhom: 'For students ready to master the complete alphabet, uppercase capitals, and smooth word rhythm.',
+    points: [
+      '6 Weeks of Dedicated Tuition (6 × 60-minute live sessions)',
+      'Full lowercase, uppercase capitals, and letter-connecting framework',
+      'Weekly marked-up homework reviews & slant corrections'
+    ],
+    prices: [
+      { label: 'Online', note: 'Effective rate: £65/hr including homework feedback', price: '£390' },
+      { label: 'In-Studio', note: 'Studio located in Birmingham, England', price: '£430' },
+      { label: 'In-Home, Zone 1 (Up to 5 miles)', note: 'Includes travel & mobile setup', price: '£550' },
+      { label: 'In-Home, Zone 2 (5–12 miles)', note: 'Includes travel & mobile setup', price: '£610' },
+      {
+        label: 'In-Home, Zone 3 (12+ miles / 30+ mins)',
+        note: 'Calculated based on travel time, mileage, and peak travel hours',
+        price: 'Custom Quote'
+      }
+    ]
+  }
+];
+
+const subheading = 'text-[1.75rem] leading-tight lg:text-[2rem]';
+const bodyText = 'text-lg leading-[1.65] font-medium text-pretty lg:text-[1.1875rem]';
+---
+
+<ServiceSection
+  id="tuition"
+  title="Copperplate Tuition"
+  subtitle="Available online and in person"
+  tone={tone}
+  photos={[
+    {
+      src: exemplarPhoto,
+      alt: 'A hand-written Copperplate capitals exemplar headed “Copperplate Capitals ~ Modern-Flourished”, the full flourished alphabet A to Z in black ink on white paper, with a rose-gold oblique holder and a glass pot of ink alongside.'
+    },
+    {
+      src: practicePhoto,
+      alt: 'A workbook practice page headed “Mindful words”, with ruled Copperplate guidelines and the words “Breathe” and “Present” written in ink above lighter tracing guides, a rose-gold oblique holder resting across the page.'
+    }
+  ]}
+>
+  <p>
+    Copperplate isn’t just handwriting—it’s a precise, technical craft governed by strict angles, line weights, and
+    muscle control.
+  </p>
+  <p>
+    Self-study from videos often leads to bad habits, bent nibs, and frustration with ink flow. Private 1-on-1 tuition
+    accelerates your progress through direct live instruction and detailed feedback on your work between sessions, saving
+    you months of trial and error.
+  </p>
+
+  <div slot="more" class="space-y-16 lg:space-y-20">
+    <div>
+      <h3 class={subheading}>What Every Package Includes</h3>
+      <span class:list={['mt-4 block h-px w-12', colours.rule]} aria-hidden="true"></span>
+      <p class:list={['mt-5 max-w-[40rem]', bodyText, colours.body]}>
+        When you enrol in a Copperplate tuition program, you receive comprehensive instructional support designed to build
+        lasting skill:
+      </p>
+      <dl class="mt-8 grid gap-x-16 gap-y-8 md:grid-cols-2">
+        {
+          includes.map(({ title, body }) => (
+            <div>
+              <dt class="text-[1.375rem] leading-snug lg:text-[1.5rem]">{title}</dt>
+              <dd class:list={['mt-2 max-w-[34rem]', bodyText, colours.body]}>{body}</dd>
+            </div>
+          ))
+        }
+      </dl>
+    </div>
+
+    <div>
+      <h3 class={subheading}>Tuition Options &amp; Investment</h3>
+      <span class:list={['mt-4 block h-px w-12', colours.rule]} aria-hidden="true"></span>
+      {/* The price cards are green so the figures stand out against the cream section. */}
+      <ul class="mt-8 grid gap-6 md:grid-cols-2 lg:gap-8">
+        {
+          programmes.map(({ name, duration, forWhom, points, prices }) => (
+            <li class:list={['p-6 sm:p-9', green.section]}>
+              <p class:list={['font-sans text-xs font-medium tracking-[0.2em] uppercase', green.label]}>{duration}</p>
+              <h4 class="mt-2 text-[1.75rem] leading-tight lg:text-[2rem]">{name}</h4>
+              <p class:list={['mt-3', bodyText, green.body]}>{forWhom}</p>
+              <ul class:list={['mt-5 space-y-2', bodyText, green.body]}>
+                {points.map((point) => (
+                  <li class="flex gap-3">
+                    <span class:list={['mt-[0.8em] h-px w-3 shrink-0', green.rule]} aria-hidden="true" />
+                    {point}
+                  </li>
+                ))}
+              </ul>
+              <dl class="mt-7 divide-y divide-cream-100/15 border-y border-cream-100/15">
+                {prices.map(({ label, note, price }) => (
+                  <div class="flex items-baseline justify-between gap-4 py-3.5">
+                    <dt>
+                      <span class="font-sans text-[0.8125rem] font-medium tracking-[0.06em]">{label}</span>
+                      <span class="mt-0.5 block text-[0.9375rem] leading-snug text-cream-100/70">{note}</span>
+                    </dt>
+                    {/* Narrow enough that "Custom Quote" takes two lines on small phones rather than squeezing its label. */}
+                    <dd class:list={['max-w-24 shrink-0 text-right text-xl lg:max-w-none lg:text-2xl', green.label]}>{price}</dd>
+                  </div>
+                ))}
+              </dl>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </div>
+</ServiceSection>
