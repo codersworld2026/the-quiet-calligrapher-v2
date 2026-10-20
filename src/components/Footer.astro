@@ -1,0 +1,65 @@
+---
+import SocialLinks from './SocialLinks.astro';
+import Wordmark from './Wordmark.astro';
+
+// Every section on the page, in page order. Contact comes last, grouped with the social icons below.
+const links = [
+  { href: '#artwork', label: 'Bespoke Artwork' },
+  { href: '#engraving', label: 'Engraving & Personalisation' },
+  { href: '#stationery', label: 'Event Stationery' },
+  { href: '#workshops', label: 'Workshops & Workbooks' },
+  { href: '#tuition', label: 'Copperplate Tuition' },
+  { href: '#about', label: 'The Journey' }
+];
+
+const linkClass =
+  'inline-flex min-h-11 min-w-11 items-center justify-center whitespace-nowrap md:justify-start hover:text-gold-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold-300';
+
+const year = new Date().getFullYear();
+---
+
+<footer class="bg-forest-900 px-gutter pt-12 pb-8 text-cream-100 lg:pt-14">
+  <div class="mx-auto max-w-[77rem]">
+    <div class="flex flex-col items-center gap-6 lg:flex-row lg:justify-between">
+      <p
+        class="flex flex-col items-center font-serif text-[0.9375rem] leading-none tracking-[0.2em] text-cream-50 uppercase md:text-base"
+      >
+        <Wordmark signatureClass="w-[6.5em] text-gold-300" />
+      </p>
+
+      {/* One link per line on phones, then rows of three: one row no longer fits beside the wordmark with the icons. */}
+      <nav aria-label="Footer">
+        <ul
+          class="flex flex-col items-center font-sans text-[0.6875rem] font-medium tracking-[0.12em] uppercase md:grid md:grid-cols-[repeat(3,auto)] md:justify-items-start md:gap-x-8 xl:gap-x-10 xl:text-xs xl:tracking-[0.22em]"
+        >
+          {
+            links.map(({ href, label }) => (
+              <li>
+                <a href={href} class={linkClass}>
+                  {label}
+                </a>
+              </li>
+            ))
+          }
+          <li class="flex items-center">
+            <a href="#contact" class={linkClass}>Contact</a>
+            <SocialLinks background="green" class="ml-1" />
+          </li>
+        </ul>
+      </nav>
+    </div>
+
+    <div
+      class="mt-8 flex flex-col items-center gap-2 border-t border-cream-100/15 pt-6 sm:flex-row sm:justify-between lg:mt-10"
+    >
+      <p class="font-sans text-xs tracking-[0.08em] text-cream-100/70">© {year} The Quiet Calligrapher</p>
+      {/* #top is the <body> (see Layout.astro), so keyboard focus also returns to the start of the page. */}
+      <a href="#top" class={`gap-3 font-sans text-[0.6875rem] font-medium tracking-[0.22em] text-gold-200 uppercase ${linkClass}`}>
+        Back to top
+        <svg class="h-3.5" viewBox="0 0 12 22" fill="none" aria-hidden="true">
+          <path d="M6 22V1.5M1 6.5l5-5 5 5" stroke="currentColor" stroke-width="1.25"></path>
+        </svg>
+      </a>
+    </div>
+  </div>
+</footer>

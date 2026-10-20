@@ -1,0 +1,32 @@
+---
+import envelopesPhoto from '../assets/images/envelopes-guest-names.png';
+import placeCardsPhoto from '../assets/images/place-cards.jpg';
+import ServiceSection from './ServiceSection.astro';
+---
+
+<ServiceSection
+  id="stationery"
+  title="Event Stationery"
+  tone="cream"
+  photos={[
+    {
+      src: placeCardsPhoto,
+      alt: 'Six place cards hand-lettered in black Copperplate calligraphy (Sophie, Eliza, Aurelia, Bill, Caspian and Julian) beneath a rose-gold oblique pen and a bottle of ink.',
+      // The names fill three-quarters of this square photo's width; nudged right, all six fit the portrait frame.
+      crop: 'object-[57%_50%]'
+    },
+    {
+      src: envelopesPhoto,
+      alt: 'Rows of red envelopes, each hand-lettered in white Copperplate calligraphy with a guest’s name.'
+    }
+  ]}
+>
+  <p>
+    Set the scene for your guests with beautifully hand-lettered place cards, escort cards, menus, table numbers, and
+    seating charts for weddings, corporate events, and intimate dinner parties.
+  </p>
+  <p>
+    Make a wonderful first impression with hand-lettered wedding invitations and envelopes. Available in any ink colour
+    you choose.
+  </p>
+</ServiceSection>

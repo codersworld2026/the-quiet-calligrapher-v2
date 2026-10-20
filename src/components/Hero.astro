@@ -1,0 +1,159 @@
+---
+// One 20-second 9:16 reel of Aliya's clips and photos (cut with video-use; edit notes in video/hero-reel/). Wider screens
+// show it in side-by-side panels, each starting this many seconds in (a third and two-thirds of the way), so different
+// shots play at once and the panels change at different moments (every shot is 2.5s).
+const panelStarts = [0, 6.67, 13.33];
+---
+
+<section
+  aria-labelledby="hero-heading"
+  class="relative isolate overflow-hidden bg-forest-900 text-cream-50 lg:grid lg:min-h-[40rem] lg:grid-cols-2 xl:grid-cols-[minmax(0,1fr)_minmax(0,1.35fr)]"
+>
+  <div class="relative z-10 flex flex-col justify-center px-gutter pt-10 pb-10 sm:pt-20 sm:pb-16 lg:py-24 lg:pr-12">
+    <p class="font-sans text-[0.6875rem] leading-[1.9] tracking-[0.35em] text-cream-100/85 uppercase sm:text-xs">
+      Bespoke calligraphy<br />for life’s finest moments
+    </p>
+    <span class="mt-4 h-px w-16 bg-gold-400 sm:mt-5" aria-hidden="true"></span>
+    <h1
+      id="hero-heading"
+      class="mt-6 text-[3.25rem] leading-[0.95] tracking-[-0.01em] sm:mt-8 sm:text-7xl lg:text-[4.5rem] xl:text-[5.75rem]"
+    >
+      Turning<br /><em class="text-gold-300">ink</em> into <em>art</em>
+    </h1>
+    <p class="mt-5 max-w-[27rem] text-lg leading-[1.55] font-medium text-cream-100/85 sm:mt-7 sm:text-xl xl:text-[1.3125rem]">
+      Elegant calligraphy, live event personalisation and bespoke artwork, created with care for your most
+      meaningful moments.
+    </p>
+    <a
+      href="#contact"
+      class="mt-7 inline-flex h-14 items-center gap-5 self-start border border-gold-400 px-8 font-sans text-[0.8125rem] font-medium tracking-[0.3em] text-gold-200 uppercase hover:bg-gold-400 hover:text-forest-950 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gold-300 sm:mt-10 lg:h-[3.75rem] lg:px-10"
+    >
+      Get in touch
+      <svg class="w-5" viewBox="0 0 22 12" fill="none" aria-hidden="true">
+        <path d="M0 6h20.5M15.5 1l5 5-5 5" stroke="currentColor" stroke-width="1.25"></path>
+      </svg>
+    </a>
+  </div>
+
+  <div class="relative -mt-6 aspect-[9/16] sm:mt-0 sm:aspect-[16/9] lg:aspect-auto" data-hero-reel>
+    {/*
+      Phones show the whole reel; tablets and laptops show three tall panels (two on smaller laptops). Every panel uses
+      the same files, so the extra panels download nothing new. AV1 is listed first because it's a third smaller; browsers
+      that can't decode it take the H.264 copy. The script below starts the visible panels.
+    */}
+    <div
+      role="img"
+      aria-label="A short silent film of Aliya’s work: a name written in white ink on a red envelope, a wall of finished envelopes, a heart-shaped place card, “Father of the Bride” engraved on a perfume bottle, wedding vows in gold ink, an Emily Brontë quote in red ink on gold-leaf-edged paper, wedding vows in black ink, and gold lettering beside a tin of metallic paints."
+      class="absolute inset-0 flex gap-2"
+    >
+      {
+        panelStarts.map((start, i) => {
+          const from = start ? `#t=${start}` : '';
+          return (
+            <video
+              class:list={[
+                'h-full min-w-0 flex-1 object-cover',
+                i > 0 && 'hidden sm:block',
+                i === 2 && 'lg:max-xl:hidden'
+              ]}
+              poster={`/video/hero-reel-poster-${i + 1}.jpg`}
+              muted
+              loop
+              playsinline
+              preload={i === 0 ? 'auto' : 'none'}
+              aria-hidden="true"
+            >
+              <source src={`/video/hero-reel-av1.mp4${from}`} type='video/mp4; codecs="av01.0.05M.08"' />
+              <source src={`/video/hero-reel-h264.mp4${from}`} type='video/mp4; codecs="avc1.64001F"' />
+            </video>
+          );
+        })
+      }
+    </div>
+    <div
+      class="pointer-events-none absolute inset-0 bg-linear-to-b from-forest-900 to-transparent to-15% sm:to-20% lg:hidden"
+      aria-hidden="true"
+    >
+    </div>
+    <button
+      type="button"
+      class="group absolute right-3 bottom-3 grid size-11 cursor-pointer place-items-center rounded-full bg-forest-950/60 text-cream-50 hover:bg-forest-950/85 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold-300"
+      aria-label="Pause the film"
+      data-state="playing"
+      data-reel-toggle
+    >
+      <svg class="size-4 group-data-[state=paused]:hidden" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+        <path d="M4 2.5h2.5v11H4zM9.5 2.5H12v11H9.5z"></path>
+      </svg>
+      <svg class="hidden size-4 group-data-[state=paused]:block" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+        <path d="M5 2.5v11l9-5.5z"></path>
+      </svg>
+    </button>
+  </div>
+
+  <svg
+    class="pointer-events-none absolute bottom-0 left-0 hidden w-36 text-gold-400/55 lg:block"
+    viewBox="0 0 150 224"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="1.4"
+    aria-hidden="true"
+  >
+    <defs>
+      <g id="hero-sprig">
+        <path d="M14 218C34 160 70 90 118 30"></path>
+        <path
+          d="M28 182Q33.9 159.2 13.8 146.8Q7.9 169.6 28 182ZM41 154Q64.5 160.7 78.8 141Q55.4 134.3 41 154ZM55.5 125Q63.2 101.8 44.1 86.6Q36.4 109.8 55.5 125ZM72 96Q93.7 105.3 109 87.4Q87.3 78.1 72 96ZM91 67Q99.6 48.1 84.7 33.6Q76.1 52.5 91 67ZM118 30Q134.6 25.4 135.5 8.2Q119 12.8 118 30Z"
+        ></path>
+        <path
+          d="M28 182L16.6 153.8M41 154L71.2 143.6M55.5 125L46.4 94.3M72 96L101.6 89.1M91 67L86 40.3M118 30L132 12.6"
+          stroke-width="0.8"></path>
+      </g>
+    </defs>
+    <use href="#hero-sprig" transform="translate(50 222) rotate(-40) scale(0.85) translate(-14 -218)"></use>
+    <use href="#hero-sprig" transform="translate(8 224) rotate(35) scale(0.62) translate(-14 -218)"></use>
+  </svg>
+</section>
+
+<script>
+  // Plays the film only while the hero is on screen and only in the panels the layout shows. Visitors who ask for
+  // reduced motion see still frames until they press play. The button pauses and resumes every panel together.
+  const reel = document.querySelector<HTMLElement>('[data-hero-reel]');
+  if (reel) {
+    const panels = [...reel.querySelectorAll('video')];
+    const toggle = reel.querySelector<HTMLButtonElement>('[data-reel-toggle]')!;
+    let wanted = !matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let onScreen = true;
+
+    const showState = () => {
+      toggle.dataset.state = wanted ? 'playing' : 'paused';
+      toggle.setAttribute('aria-label', wanted ? 'Pause the film' : 'Play the film');
+    };
+    const update = () => {
+      for (const video of panels) {
+        // Panels hidden by the layout have no boxes.
+        if (wanted && onScreen && video.getClientRects().length) {
+          video.play().catch((error: DOMException) => {
+            // Autoplay can be blocked (for example in Low Power Mode on iPhones); show the play button instead.
+            if (error.name === 'NotAllowedError') {
+              wanted = false;
+              showState();
+            }
+          });
+        } else video.pause();
+      }
+      showState();
+    };
+
+    toggle.addEventListener('click', () => {
+      wanted = !wanted;
+      update();
+    });
+    new IntersectionObserver(([entry]) => {
+      onScreen = entry.isIntersecting;
+      update();
+    }).observe(reel);
+    addEventListener('resize', update);
+    update();
+  }
+</script>

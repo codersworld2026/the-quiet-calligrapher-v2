@@ -1,0 +1,107 @@
+{
+  "version": 2,
+  "sources": {
+    "de40366f": "/Users/hamza.suliman/the_quiet_calligrapher/client-media-inbox/de40366f-919e-4f7c-841a-c27149cd8859.MP4",
+    "100024b4": "/Users/hamza.suliman/the_quiet_calligrapher/client-media-inbox/100024b4-7358-4bf7-9a26-900d49ad3fdc.MP4",
+    "3545a7a3": "/Users/hamza.suliman/the_quiet_calligrapher/client-media-inbox/3545a7a3-38f4-49d7-81f7-c1b7fc7a3ae5.MP4",
+    "perfume": "/Users/hamza.suliman/the-quiet-calligrapher-v2/client-photos/engraved-perfume-father-of-the-bride.jpg",
+    "bc369417": "/Users/hamza.suliman/the_quiet_calligrapher/client-media-inbox/bc369417-4dad-42df-be6f-e3deb70b79de.MP4",
+    "bronte": "/Users/hamza.suliman/the-quiet-calligrapher-v2/client-photos/red-ink-gold-leaf-emily-bronte-quote.png",
+    "4324820d": "/Users/hamza.suliman/the_quiet_calligrapher/client-media-inbox/4324820d-7c7d-42fc-937e-5b8fca43bfd5.MP4",
+    "hera": "/Users/hamza.suliman/the-quiet-calligrapher-v2/client-photos/gold-ink-german-barque-hera.jpg"
+  },
+  "output": {
+    "width": 720,
+    "height": 1280,
+    "fps": 30,
+    "dissolve": 0.5,
+    "loop": true,
+    "crf_h264": 28,
+    "crf_av1": 44,
+    "posters": [0, 6.67, 13.33],
+    "panel_starts": [0, 6.67, 13.33]
+  },
+  "ranges": [
+    {
+      "source": "de40366f",
+      "start": 4.2,
+      "end": 7.2,
+      "speed": 1,
+      "crop": "464:824:0:4",
+      "grade": "",
+      "beat": "WRITING",
+      "reason": "Ink going on: 'Arian' written in white on a red envelope. The only jump-free 3s of this clip (4.10-7.27s); the 'My Queen' take has a 4-frame flash at 23.47s."
+    },
+    {
+      "source": "100024b4",
+      "start": 5.0,
+      "end": 9.5,
+      "speed": 1.5,
+      "crop": "432:768:72:0",
+      "grade": "hue=h=6:s=0.8",
+      "beat": "SCALE",
+      "reason": "Pull-back to the wall of finished envelopes. 1.5x so the reveal completes inside the shot."
+    },
+    {
+      "source": "3545a7a3",
+      "start": 6.0,
+      "end": 9.0,
+      "speed": 1,
+      "crop": "324:576:166:0",
+      "grade": "colorlevels=rimax=0.917:gimax=0.941:bimax=0.956",
+      "beat": "PLACE CARDS",
+      "reason": "'Flora' heart place card centred; crop removes the source's black side bars."
+    },
+    {
+      "type": "still",
+      "source": "perfume",
+      "from": [269, 0, 1152],
+      "to": [356.7, 101.9, 1066.7],
+      "grade": "colorlevels=rimax=0.976:bomax=0.97",
+      "beat": "ENGRAVING",
+      "reason": "'Father of the Bride' engraved on a perfume bottle, replacing the candle at the user's request. Slow 8% push-in onto the lettering. Warmed only: its marble highlights already sit near white."
+    },
+    {
+      "source": "bc369417",
+      "start": 4.5,
+      "end": 7.5,
+      "speed": 1,
+      "crop": "",
+      "grade": "colorlevels=rimax=0.726:gimax=0.74:bimax=0.764",
+      "beat": "GOLD",
+      "reason": "Gold-ink vows filling the frame; before the source's cut at 8.23s. Moved ahead of the black-ink vows so the two gold-ink pieces sit apart."
+    },
+    {
+      "type": "still",
+      "source": "bronte",
+      "from": [184, 0, 1152],
+      "to": [201.7, 131.9, 1066.7],
+      "grade": "colorlevels=rimax=0.971:gimax=0.987:bomax=0.978",
+      "beat": "ARTWORK",
+      "reason": "Emily Bronte quote in red ink on gold-leaf-edged handmade paper, added at the user's request. Whole quote and the rose in frame; slow 8% push-in onto the words."
+    },
+    {
+      "source": "4324820d",
+      "start": 9.1,
+      "end": 11.96,
+      "speed": 0.953,
+      "crop": "464:824:0:4",
+      "grade": "colorlevels=rimax=0.979:bomax=0.946",
+      "beat": "VOWS",
+      "reason": "Full vows page with pen and ink. Starts after the source's cut at 9.06s; slowed 5% to fill 3s."
+    },
+    {
+      "type": "still",
+      "source": "hera",
+      "from": [64, 0, 1152],
+      "to": [384, 40, 1110],
+      "grade": "colorlevels=rimax=0.901:gimax=0.913:bimax=0.957",
+      "beat": "GOLD LETTERING",
+      "reason": "'German barque Hera, wrecked on Gull Rock' in gold ink beside the metallic paints, added at the user's request. The line is wider than the 9:16 frame, so the camera glides right along it. The photo is dim and cool, so it is lifted about 10% and warmed."
+    }
+  ],
+  "excluded": {
+    "b68d3ec0": "Shows a client's full name and postal address.",
+    "3a4e5f5f": "Engraved 'Congratulations' candle. Replaced by the Father of the Bride photo at the user's request (2026-10-19)."
+  }
+}

@@ -1,0 +1,31 @@
+---
+import '../styles/global.css';
+import { Font } from 'astro:assets';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+---
+
+<!doctype html>
+<html lang="en-GB">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <title>The Quiet Calligrapher</title>
+    <Font cssVariable="--font-cormorant-garamond" preload={[{ weight: 400 }]} />
+    <Font cssVariable="--font-jost" />
+  </head>
+  <body id="top" class="bg-cream-100 font-serif text-ink antialiased">
+    <a
+      href="#main"
+      class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50 focus:bg-cream-50 focus:px-4 focus:py-3 focus:font-sans focus:text-sm"
+    >
+      Skip to content
+    </a>
+    <Header />
+    <main id="main">
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>

@@ -1,0 +1,34 @@
+@import "tailwindcss";
+
+@theme {
+  --color-forest-900: #0e1b12;
+  --color-forest-950: #08120b;
+
+  --color-cream-50: #faf6ee;
+  --color-cream-100: #f5ede0;
+  --color-cream-200: #e8dbc3;
+
+  --color-gold-200: #f0d9a6;
+  --color-gold-300: #e0b874;
+  --color-gold-400: #cda15d;
+  --color-gold-500: #b98f4b;
+  --color-gold-700: #8a6430;
+
+  --color-ink: #191713;
+
+  --spacing-gutter: clamp(1.5rem, 7.5vw, 7rem);
+}
+
+/* The font variables come from the Fonts API in astro.config.mjs. */
+@theme inline {
+  --font-serif: var(--font-cormorant-garamond);
+  --font-sans: var(--font-jost);
+}
+
+/* A brush pen in place of the arrow; links and buttons keep the pointing hand. The hotspot is the bristle tip, and the
+   PNG is the same drawing for browsers that can't show an SVG cursor. */
+@layer base {
+  html {
+    cursor: url('/cursor/brush-pen.svg') 2 29, url('/cursor/brush-pen.png') 2 29, auto;
+  }
+}

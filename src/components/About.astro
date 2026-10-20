@@ -1,0 +1,47 @@
+---
+import Signature from '../assets/aliya-signature.svg';
+
+// Text-only until an approved portrait of Aliya is ready. It can then sit beside the text on desktop and above the biography on phones.
+const paragraphs = [
+  'Hello and welcome! I’m so glad you’re here. For me, a large part of calligraphy is connecting with fellow lovers of beautifully written words and the deep meaning they carry.',
+  'My name is Aliya. I am a primary school teacher turned calligrapher. My journey into the world of lettering began with a humble project: I decided my spice jar labels needed an upgrade. True story! Naturally, they had to be hand-lettered, not printed. What started as a simple weekend project quickly grew into an all-consuming passion for Copperplate calligraphy. I spent every spare moment attending workshops, studying books and analysing the techniques of master artists.',
+  'Beyond mastering the skill, I discovered how calming and meditative the process was. It became my ultimate creative outlet. Eventually, I realised I wanted to share this mindful craft with others while creating lasting mementos and bespoke artwork.',
+  'After leaving my 13-year career in primary education, I redirected my teaching background toward helping others discover their creative voice. While I am still an educator, my classroom looks a little different now: I teach the art of Copperplate calligraphy to students of all levels. Beyond the classroom, I also offer bespoke lettering art, handwritten letters, custom engraving, and hot foiling services.',
+  'Whether you are eager to learn the craft or looking to bring a personal project to life with custom lettering, I would love to connect and collaborate with you.'
+];
+---
+
+<section
+  id="about"
+  aria-labelledby="about-heading"
+  class="bg-forest-900 px-gutter py-20 text-cream-50 sm:py-24 lg:py-28"
+>
+  <div class="text-center">
+    <p class="font-sans text-[0.6875rem] tracking-[0.35em] text-gold-300 uppercase sm:text-xs">The artist</p>
+    <h2 id="about-heading" class="mt-4 text-[2.25rem] leading-tight text-balance sm:text-5xl lg:text-[3.5rem]">
+      The Beauty of the Written Word
+    </h2>
+    <p class="mt-4 font-sans text-[0.6875rem] leading-[1.9] tracking-[0.25em] text-cream-100/70 uppercase sm:text-xs">
+      <span class="whitespace-nowrap">Modern Copperplate <span class="text-gold-400">·</span></span> <span class="whitespace-nowrap">Crafted by hand</span>
+    </p>
+    <span class="mx-auto mt-6 block h-px w-16 bg-gold-400" aria-hidden="true"></span>
+  </div>
+
+  <div class="mx-auto mt-10 max-w-[36rem] space-y-6 text-lg leading-[1.65] font-medium text-pretty text-cream-100/85 sm:mt-12 lg:text-[1.1875rem]">
+    {paragraphs.map((paragraph) => <p>{paragraph}</p>)}
+    {/* Her name signs off the letter, in the same lettering as the wordmark. */}
+    <Signature class="w-40 text-gold-300 sm:w-48" role="img" aria-label="Aliya" />
+  </div>
+
+  <div class="mt-12 text-center lg:mt-14">
+    <a
+      href="#contact"
+      class="inline-flex h-14 items-center gap-5 border border-gold-400 px-8 font-sans text-[0.8125rem] font-medium tracking-[0.3em] text-gold-200 uppercase hover:bg-gold-400 hover:text-forest-950 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gold-300 lg:h-[3.75rem] lg:px-10"
+    >
+      Get in touch
+      <svg class="w-5" viewBox="0 0 22 12" fill="none" aria-hidden="true">
+        <path d="M0 6h20.5M15.5 1l5 5-5 5" stroke="currentColor" stroke-width="1.25"></path>
+      </svg>
+    </a>
+  </div>
+</section>

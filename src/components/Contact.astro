@@ -1,0 +1,33 @@
+---
+const email = 'hello@thequietcalligrapher.com';
+const [user, domain] = email.split('@');
+---
+
+<section
+  id="contact"
+  aria-labelledby="contact-heading"
+  class="bg-cream-50 px-gutter py-20 text-center sm:py-24 lg:py-28"
+>
+  <h2 id="contact-heading" class="text-[2.25rem] leading-tight sm:text-5xl lg:text-[3.5rem]">Get in Touch</h2>
+  <span class="mx-auto mt-5 block h-px w-16 bg-gold-500" aria-hidden="true"></span>
+
+  <p class="mt-8 text-2xl leading-snug font-medium sm:text-[1.75rem] lg:text-[2rem]">
+    {/* <wbr> lets a narrow screen break the address after the @ instead of overflowing. */}
+    <a
+      href={`mailto:${email}`}
+      class="underline decoration-gold-500 decoration-1 underline-offset-[0.3em] hover:text-gold-700 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gold-500"
+    >
+      {user}@<wbr />{domain}
+    </a>
+  </p>
+
+  <a
+    href={`mailto:${email}`}
+    class="mt-10 inline-flex h-14 items-center gap-5 border border-gold-500 px-8 font-sans text-[0.8125rem] font-medium tracking-[0.3em] text-gold-700 uppercase hover:border-gold-700 hover:bg-gold-700 hover:text-cream-50 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gold-500 lg:h-[3.75rem] lg:px-10"
+  >
+    Email Aliya
+    <svg class="w-5" viewBox="0 0 22 12" fill="none" aria-hidden="true">
+      <path d="M0 6h20.5M15.5 1l5 5-5 5" stroke="currentColor" stroke-width="1.25"></path>
+    </svg>
+  </a>
+</section>
