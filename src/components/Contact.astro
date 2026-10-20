@@ -6,7 +6,8 @@ const [user, domain] = email.split('@');
 // only ever send to that one address), so it lives here rather than in a secret. A new key comes from web3forms.com.
 const accessKey = '1b7a8acf-d866-4758-8fd0-a19369fecabe';
 
-// "What can I help with?" lists the services in page order.
+// "What can I help with?" lists the services in page order, named as the sections' titles so each section's "Get in
+// touch" can choose its own.
 const services = [
   'Bespoke Calligraphy Artwork',
   'Surface Engraving & Personalisation',
@@ -19,7 +20,9 @@ const services = [
 const labelClass = 'block font-sans text-xs font-medium tracking-[0.2em] text-gold-700 uppercase';
 // Gold-700 outlines meet the 3:1 contrast a field's edge needs on cream; 18px text stops iPhones zooming in on focus.
 const fieldClass =
-  'mt-2 block w-full border border-gold-700 bg-cream-100 px-4 py-3 text-lg font-medium text-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold-700';
+  'mt-2 block w-full border border-gold-700 bg-cream-100 px-4 py-3 text-lg font-medium text-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold-700 aria-[invalid=true]:border-rust-700';
+// The message under a field that's missing or mistyped (the script below fills it in).
+const errorClass = 'mt-2 text-lg leading-snug font-medium text-rust-700';
 ---
 
 <section
@@ -45,11 +48,32 @@ const fieldClass =
 
     <div>
       <label for="enquiry-name" class={labelClass}>Name</label>
-      <input id="enquiry-name" name="name" type="text" autocomplete="name" required class={fieldClass} />
+      <input
+        id="enquiry-name"
+        name="name"
+        type="text"
+        autocomplete="name"
+        required
+        aria-describedby="enquiry-name-error"
+        data-missing="Please enter your name"
+        class={fieldClass}
+      />
+      <p id="enquiry-name-error" class={errorClass} hidden></p>
     </div>
     <div>
       <label for="enquiry-email" class={labelClass}>Email</label>
-      <input id="enquiry-email" name="email" type="email" autocomplete="email" required class={fieldClass} />
+      <input
+        id="enquiry-email"
+        name="email"
+        type="email"
+        autocomplete="email"
+        required
+        aria-describedby="enquiry-email-error"
+        data-missing="Please enter your email address"
+        data-format="Please enter an email address like name@example.com"
+        class={fieldClass}
+      />
+      <p id="enquiry-email-error" class={errorClass} hidden></p>
     </div>
     <div>
       <label for="enquiry-phone" class={labelClass}>Phone (optional)</label>
@@ -74,7 +98,15 @@ const fieldClass =
     </div>
     <div class="sm:col-span-2">
       <label for="enquiry-message" class={labelClass}>Tell me about your project</label>
-      <textarea id="enquiry-message" name="message" rows="6" required class={`${fieldClass} resize-y`}></textarea>
+      <textarea
+        id="enquiry-message"
+        name="message"
+        rows="6"
+        required
+        aria-describedby="enquiry-message-error"
+        data-missing="Please tell me about your project"
+        class={`${fieldClass} resize-y`}></textarea>
+      <p id="enquiry-message-error" class={errorClass} hidden></p>
     </div>
 
     <div class="flex flex-wrap items-center gap-x-6 gap-y-3 sm:col-span-2">
@@ -118,12 +150,54 @@ const fieldClass =
   if (form && sent) {
     const status = form.querySelector<HTMLElement>('[data-enquiry-status]')!;
     const button = form.querySelector<HTMLButtonElement>('button[type="submit"]')!;
+    const service = form.querySelector<HTMLSelectElement>('#enquiry-service')!;
+    const required = [...form.querySelectorAll<HTMLInputElement | HTMLTextAreaElement>('[data-missing]')];
+
+    // Each service section's "Get in touch" names its service, so the form arrives with it chosen. The other links to
+    // the form (hero, About, header and footer) leave the choice as it is.
+    document.addEventListener('click', (event) => {
+      const link = (event.target as Element).closest<HTMLElement>('[data-service]');
+      if (link) service.value = link.dataset.service!;
+    });
+
+    // The form's own messages replace the browser's pop-ups, which vanish after a moment and differ between browsers.
+    // Each stays under its field until it's put right. An email address needs a full domain (name@gmail isn't one),
+    // or Aliya couldn't reply.
+    form.noValidate = true;
+    const problem = (field: HTMLInputElement | HTMLTextAreaElement) => {
+      const value = field.value.trim();
+      if (!value) return field.dataset.missing!;
+      if (field.type === 'email' && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) return field.dataset.format!;
+      return '';
+    };
+    const show = (field: HTMLInputElement | HTMLTextAreaElement, message: string) => {
+      const error = document.getElementById(`${field.id}-error`)!;
+      error.textContent = message;
+      error.hidden = !message;
+      if (message) field.setAttribute('aria-invalid', 'true');
+      else field.removeAttribute('aria-invalid');
+    };
+    form.addEventListener('input', (event) => {
+      const field = event.target as HTMLInputElement;
+      if (field.hasAttribute('aria-invalid') && !problem(field)) show(field, '');
+    });
 
     form.addEventListener('submit', async (event) => {
       event.preventDefault();
+      let first: HTMLInputElement | HTMLTextAreaElement | undefined;
+      for (const field of required) {
+        const message = problem(field);
+        show(field, message);
+        if (message && !first) first = field;
+      }
+      if (first) {
+        first.scrollIntoView({ block: 'center' });
+        first.focus({ preventScroll: true });
+        return;
+      }
+
       const data = new FormData(form);
-      const service = data.get('service');
-      if (service) data.set('subject', `New enquiry: ${service}`);
+      if (service.value) data.set('subject', `New enquiry: ${service.value}`);
       button.disabled = true;
       status.textContent = 'Sending…';
       try {
@@ -132,10 +206,14 @@ const fieldClass =
         if (!response.ok || !result.success) throw new Error(result.message);
         form.hidden = true;
         sent.hidden = false;
-        sent.focus();
+        // Hiding the form shortens the page under the visitor's thumb, which can leave the note above the screen.
+        sent.focus({ preventScroll: true });
+        sent.scrollIntoView({ block: 'center' });
       } catch {
         status.textContent = 'Sorry, your enquiry didn’t send. Please try again, or email hello@thequietcalligrapher.com.';
         button.disabled = false;
+        // On narrow screens the message wraps below the button, which can put it under the bottom edge.
+        status.scrollIntoView({ block: 'nearest' });
       }
     });
   }

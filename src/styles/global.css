@@ -15,6 +15,8 @@
   --color-gold-700: #8a6430;
 
   --color-ink: #191713;
+  /* Enquiry form errors only: a red-brown ink, 6.9:1 on cream. */
+  --color-rust-700: #9c2f1f;
 
   --spacing-gutter: clamp(1.5rem, 7.5vw, 7rem);
 }
