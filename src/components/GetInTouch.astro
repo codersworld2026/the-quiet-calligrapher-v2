@@ -3,14 +3,17 @@ import { tones, type Tone } from './tones';
 
 interface Props {
   tone: Tone;
+  // The service the section offers, which the enquiry form then arrives with chosen (see Contact.astro).
+  service?: string;
   class?: string;
 }
 
-const { tone, class: className } = Astro.props;
+const { tone, service, class: className } = Astro.props;
 ---
 
 <a
   href="#contact"
+  data-service={service}
   class:list={[
     'inline-flex h-14 items-center gap-5 border px-8 font-sans text-[0.8125rem] font-medium tracking-[0.3em] uppercase focus-visible:outline-2 focus-visible:outline-offset-4 lg:h-[3.75rem] lg:px-10',
     tones[tone].button,
