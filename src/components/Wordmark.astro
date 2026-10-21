@@ -1,16 +1,28 @@
 ---
 import Signature from '../assets/aliya-signature.svg';
 
-// The Quiet Calligrapher wordmark: two lines of lettering over Aliya's name in Copperplate script, traced from the
-// lettering in client-photos/aliya-name-lettering.png. The element it sits in sets the font size, colour, letter
+// The Quiet Calligrapher wordmark: one or two lines of lettering over Aliya's name in Copperplate script, traced from
+// the lettering in client-photos/aliya-name-lettering.png. The element it sits in sets the font size, colour, letter
 // spacing and column layout.
 interface Props {
   // The name's width and colour (gold-700 on cream, gold-300 on green).
   signatureClass: string;
+  // "The Quiet Calligrapher" on one line (the header) rather than two (the footer). Letter spacing also follows the last
+  // letter, which would sit the line left of centre over the name, so the element it sits in sets --tracking to its
+  // letter spacing for the line to take back.
+  oneLine?: boolean;
 }
 
-const { signatureClass } = Astro.props;
+const { signatureClass, oneLine = false } = Astro.props;
 ---
 
-<span>The Quiet</span> <span class="mt-[0.4em]">Calligrapher</span>
+{
+  oneLine ? (
+    <span class="mr-[calc(var(--tracking,0em)*-1)] whitespace-nowrap">The Quiet Calligrapher</span>
+  ) : (
+    <>
+      <span>The Quiet</span> <span class="mt-[0.4em]">Calligrapher</span>
+    </>
+  )
+}
 <Signature class={`mt-[0.35em] ${signatureClass}`} role="img" aria-label="Aliya" />
