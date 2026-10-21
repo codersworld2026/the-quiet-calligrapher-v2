@@ -38,8 +38,10 @@ const panelStarts = [0, 6.67, 13.33];
   <div class="relative -mt-6 aspect-[9/16] sm:mt-0 sm:aspect-[16/9] lg:aspect-auto" data-hero-reel>
     {/*
       Phones show the whole reel; tablets and laptops show three tall panels (two on smaller laptops). Every panel uses
-      the same files, so the extra panels download nothing new. AV1 is listed first because it's a third smaller; browsers
-      that can't decode it take the H.264 copy. The script below starts the visible panels.
+      the same files, though each panel buffers its own copy as it plays. AV1 is listed first because it's a third
+      smaller; browsers that can't decode it take the H.264 copy. The script below starts the visible panels.
+      The first panel's still frame is its poster, the first image on phones. The other panels' still frames are
+      backgrounds set only at the widths that show those panels, because a poster downloads even when its panel is hidden.
     */}
     <div
       role="img"
@@ -52,15 +54,16 @@ const panelStarts = [0, 6.67, 13.33];
           return (
             <video
               class:list={[
-                'h-full min-w-0 flex-1 object-cover',
+                'h-full min-w-0 flex-1 bg-cover bg-center object-cover',
                 i > 0 && 'hidden sm:block',
-                i === 2 && 'lg:max-xl:hidden'
+                i === 1 && 'sm:bg-[url(/video/hero-reel-poster-2.jpg)]',
+                i === 2 && 'lg:max-xl:hidden sm:max-lg:bg-[url(/video/hero-reel-poster-3.jpg)] xl:bg-[url(/video/hero-reel-poster-3.jpg)]'
               ]}
-              poster={`/video/hero-reel-poster-${i + 1}.jpg`}
+              poster={i === 0 ? '/video/hero-reel-poster-1.jpg' : undefined}
               muted
               loop
               playsinline
-              preload={i === 0 ? 'auto' : 'none'}
+              preload="none"
               aria-hidden="true"
             >
               <source src={`/video/hero-reel-av1.mp4${from}`} type='video/mp4; codecs="av01.0.05M.08"' />
@@ -118,12 +121,14 @@ const panelStarts = [0, 6.67, 13.33];
 <script>
   // Plays the film only while the hero is on screen and only in the panels the layout shows. Visitors who ask for
   // reduced motion see still frames until they press play. The button pauses and resumes every panel together.
+  // The film starts once the page has loaded, so on a slow connection it doesn't hold up the text and still frames.
   const reel = document.querySelector<HTMLElement>('[data-hero-reel]');
   if (reel) {
     const panels = [...reel.querySelectorAll('video')];
     const toggle = reel.querySelector<HTMLButtonElement>('[data-reel-toggle]')!;
     let wanted = !matchMedia('(prefers-reduced-motion: reduce)').matches;
     let onScreen = true;
+    let loaded = document.readyState === 'complete';
 
     const showState = () => {
       toggle.dataset.state = wanted ? 'playing' : 'paused';
@@ -132,7 +137,7 @@ const panelStarts = [0, 6.67, 13.33];
     const update = () => {
       for (const video of panels) {
         // Panels hidden by the layout have no boxes.
-        if (wanted && onScreen && video.getClientRects().length) {
+        if (wanted && onScreen && loaded && video.getClientRects().length) {
           video.play().catch((error: DOMException) => {
             // Autoplay can be blocked (for example in Low Power Mode on iPhones); show the play button instead.
             if (error.name === 'NotAllowedError') {
@@ -154,6 +159,15 @@ const panelStarts = [0, 6.67, 13.33];
       update();
     }).observe(reel);
     addEventListener('resize', update);
+    if (!loaded)
+      addEventListener(
+        'load',
+        () => {
+          loaded = true;
+          update();
+        },
+        { once: true }
+      );
     update();
   }
 </script>
