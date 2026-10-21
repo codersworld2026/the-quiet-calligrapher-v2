@@ -12,6 +12,13 @@ import Header from '../components/Header.astro';
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
     <title>The Quiet Calligrapher</title>
+    {/*
+      The tab icon is Cormorant Garamond's Q in gold on forest green. The ICO is for browsers that can't show the SVG,
+      and the square PNG is for iPhone home screens, which round the corners themselves.
+    */}
+    <link rel="icon" href="/favicon.ico" sizes="32x32" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <Font cssVariable="--font-cormorant-garamond" preload={[{ weight: 400 }]} />
     <Font cssVariable="--font-jost" />
   </head>
