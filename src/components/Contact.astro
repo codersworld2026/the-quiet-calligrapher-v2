@@ -6,6 +6,11 @@ const [user, domain] = email.split('@');
 // only ever send to that one address), so it lives here rather than in a secret. A new key comes from web3forms.com.
 const accessKey = '1b7a8acf-d866-4758-8fd0-a19369fecabe';
 
+// The "I am human" box is hCaptcha, under the shared site key Web3Forms gives free plans (public, like the access key).
+// It only stops spam once hCaptcha is switched on for this form in the Web3Forms dashboard: then Web3Forms turns away
+// every enquiry without a ticked box, including bots that post straight to it and never load this page.
+const captchaSiteKey = '50b2fe65-b00b-4b9e-ad62-3ba471098be2';
+
 // "What can I help with?" lists the services in page order, named as the sections' titles so each section's "Get in
 // touch" can choose its own.
 const services = [
@@ -33,11 +38,14 @@ const errorClass = 'mt-2 text-lg leading-snug font-medium text-rust-700';
   <h2 id="contact-heading" class="text-[2.25rem] leading-tight sm:text-5xl lg:text-[3.5rem]">Get in Touch</h2>
   <span class="mx-auto mt-5 block h-px w-16 bg-gold-500" aria-hidden="true"></span>
 
-  {/* Without JavaScript the form posts straight to Web3Forms, which shows its own confirmation page. */}
+  {/*
+    Without JavaScript the form posts straight to Web3Forms, which shows its own confirmation page. There's no "I am
+    human" box then, so once Web3Forms requires one it turns those enquiries away and the email link is the way in.
+  */}
   <form
     action="https://api.web3forms.com/submit"
     method="POST"
-    class="mx-auto mt-10 grid max-w-[40rem] gap-6 text-left sm:mt-12 sm:grid-cols-2"
+    class="@container mx-auto mt-10 grid max-w-[40rem] gap-6 text-left sm:mt-12 sm:grid-cols-2"
     data-enquiry
   >
     <input type="hidden" name="access_key" value={accessKey} />
@@ -108,6 +116,14 @@ const errorClass = 'mt-2 text-lg leading-snug font-medium text-rust-700';
         class={`${fieldClass} resize-y`}></textarea>
       <p id="enquiry-message-error" class={errorClass} hidden></p>
     </div>
+    {/*
+      hCaptcha draws its box here (the script below loads it). The box is 303px wide, so a narrower form gets the
+      compact 164 × 144 one; the space is held so the button doesn't jump down when it appears.
+    */}
+    <div class="sm:col-span-2">
+      <div class="min-h-[78px] @max-[303px]:min-h-36" data-captcha data-sitekey={captchaSiteKey}></div>
+      <p id="enquiry-captcha-error" class={errorClass} role="alert" hidden></p>
+    </div>
 
     <div class="flex flex-wrap items-center gap-x-6 gap-y-3 sm:col-span-2">
       <button
@@ -143,6 +159,12 @@ const errorClass = 'mt-2 text-lg leading-snug font-medium text-rust-700';
 </section>
 
 <script>
+  declare const hcaptcha: {
+    render(container: HTMLElement, options: object): string;
+    getResponse(widget: string): string;
+    reset(widget: string): void;
+  };
+
   // Sends the enquiry without leaving the page, then swaps the form for a thank-you note. The email's subject names the
   // service chosen, so Aliya can sort enquiries at a glance.
   const form = document.querySelector<HTMLFormElement>('[data-enquiry]');
@@ -152,6 +174,39 @@ const errorClass = 'mt-2 text-lg leading-snug font-medium text-rust-700';
     const button = form.querySelector<HTMLButtonElement>('button[type="submit"]')!;
     const service = form.querySelector<HTMLSelectElement>('#enquiry-service')!;
     const required = [...form.querySelectorAll<HTMLInputElement | HTMLTextAreaElement>('[data-missing]')];
+    const captcha = form.querySelector<HTMLElement>('[data-captcha]')!;
+    const captchaError = document.getElementById('enquiry-captcha-error')!;
+
+    // hCaptcha loads once the form is within a screen's height, so visitors who never scroll that far don't download
+    // it. Ticking the box puts its token in the form, and that's what Web3Forms checks.
+    let widget: string | undefined;
+    const showCaptchaError = (message: string) => {
+      captchaError.textContent = message;
+      captchaError.hidden = !message;
+    };
+    Object.assign(window, {
+      enquiryCaptchaReady: () => {
+        widget = hcaptcha.render(captcha, {
+          sitekey: captcha.dataset.sitekey,
+          size: captcha.clientWidth < 303 ? 'compact' : 'normal',
+          callback: () => showCaptchaError('')
+        });
+      }
+    });
+    new IntersectionObserver(
+      (entries, observer) => {
+        if (!entries[0].isIntersecting) return;
+        observer.disconnect();
+        const script = document.createElement('script');
+        script.src = 'https://js.hcaptcha.com/1/api.js?render=explicit&onload=enquiryCaptchaReady&recaptchacompat=off';
+        script.onerror = () =>
+          showCaptchaError(
+            'The “I am human” box didn’t load. Please refresh the page, or email hello@thequietcalligrapher.com.'
+          );
+        document.head.append(script);
+      },
+      { rootMargin: '100% 0px' }
+    ).observe(form);
 
     // Each service section's "Get in touch" names its service, so the form arrives with it chosen. The other links to
     // the form (hero, About, header and footer) leave the choice as it is.
@@ -190,9 +245,16 @@ const errorClass = 'mt-2 text-lg leading-snug font-medium text-rust-700';
         show(field, message);
         if (message && !first) first = field;
       }
+      // A message already under the box (it didn't load) is left as it is.
+      const ticked = widget !== undefined && hcaptcha.getResponse(widget) !== '';
+      if (!ticked && captchaError.hidden) showCaptchaError('Please tick “I am human” before sending');
       if (first) {
         first.scrollIntoView({ block: 'center' });
         first.focus({ preventScroll: true });
+        return;
+      }
+      if (!ticked) {
+        captcha.scrollIntoView({ block: 'center' });
         return;
       }
 
@@ -210,7 +272,10 @@ const errorClass = 'mt-2 text-lg leading-snug font-medium text-rust-700';
         sent.focus({ preventScroll: true });
         sent.scrollIntoView({ block: 'center' });
       } catch {
-        status.textContent = 'Sorry, your enquiry didn’t send. Please try again, or email hello@thequietcalligrapher.com.';
+        // Each tick is good for one try, so the box is cleared for the next.
+        hcaptcha.reset(widget!);
+        status.textContent =
+          'Sorry, your enquiry didn’t send. Please tick “I am human” again and resend, or email hello@thequietcalligrapher.com.';
         button.disabled = false;
         // On narrow screens the message wraps below the button, which can put it under the bottom edge.
         status.scrollIntoView({ block: 'nearest' });
