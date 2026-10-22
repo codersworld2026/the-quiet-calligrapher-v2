@@ -1,15 +1,13 @@
 ---
+import { services } from './services';
 import SocialLinks from './SocialLinks.astro';
 import Wordmark from './Wordmark.astro';
 
-// Every section on the page, in page order. Contact comes last, grouped with the social icons below.
+// Each service's own page, in page order, then About on the homepage. Contact comes last, grouped with the social icons
+// below; every page ends with the enquiry form, so it stays on the page.
 const links = [
-  { href: '#stationery', label: 'Event Stationery' },
-  { href: '#engraving', label: 'Engraving & Personalisation' },
-  { href: '#artwork', label: 'Bespoke Artwork' },
-  { href: '#workshops', label: 'Workshops & Workbooks' },
-  { href: '#tuition', label: 'Copperplate Tuition' },
-  { href: '#about', label: 'The Journey' }
+  ...services.map(({ slug, label }) => ({ href: `/${slug}`, label })),
+  { href: '/#about', label: 'The Journey' }
 ];
 
 const linkClass =
@@ -52,7 +50,10 @@ const year = new Date().getFullYear();
     <div
       class="mt-8 flex flex-col items-center gap-2 border-t border-cream-100/15 pt-6 sm:flex-row sm:justify-between lg:mt-10"
     >
-      <p class="font-sans text-xs tracking-[0.08em] text-cream-100/70">© {year} The Quiet Calligrapher</p>
+      <p class="flex flex-wrap items-center justify-center gap-x-5 font-sans text-xs tracking-[0.08em] text-cream-100/70">
+        © {year} The Quiet Calligrapher
+        <a href="/privacy" class={linkClass}>Privacy &amp; cookies</a>
+      </p>
       {/* #top is the <body> (see Layout.astro), so keyboard focus also returns to the start of the page. */}
       <a href="#top" class={`gap-3 font-sans text-[0.6875rem] font-medium tracking-[0.22em] text-gold-200 uppercase ${linkClass}`}>
         Back to top
