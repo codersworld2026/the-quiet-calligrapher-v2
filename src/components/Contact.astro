@@ -1,4 +1,12 @@
 ---
+import { services } from './services';
+
+interface Props {
+  // On a service's own page, the service the form arrives with chosen.
+  service?: string;
+}
+
+const { service: chosen } = Astro.props;
 const email = 'hello@thequietcalligrapher.com';
 const [user, domain] = email.split('@');
 
@@ -13,14 +21,7 @@ const captchaSiteKey = '50b2fe65-b00b-4b9e-ad62-3ba471098be2';
 
 // "What can I help with?" lists the services in page order, named as the sections' titles so each section's "Get in
 // touch" can choose its own.
-const services = [
-  'Event Stationery',
-  'Surface Engraving & Personalisation',
-  'Bespoke Calligraphy Artwork',
-  'Workshops & Workbooks',
-  'Copperplate Tuition',
-  'Something else'
-];
+const choices = [...services.map((service) => service.title), 'Something else'];
 
 const labelClass = 'block font-sans text-xs font-medium tracking-[0.2em] text-gold-700 uppercase';
 // Gold-700 outlines meet the 3:1 contrast a field's edge needs on cream; 18px text stops iPhones zooming in on focus.
@@ -92,7 +93,7 @@ const errorClass = 'mt-2 text-lg leading-snug font-medium text-rust-700';
       <div class="relative">
         <select id="enquiry-service" name="service" class={`${fieldClass} cursor-pointer appearance-none pr-11`}>
           <option value="">Choose one (optional)</option>
-          {services.map((service) => <option>{service}</option>)}
+          {choices.map((choice) => <option selected={choice === chosen}>{choice}</option>)}
         </select>
         <svg
           class="pointer-events-none absolute top-1/2 right-4 w-3 -translate-y-1/2 text-gold-700"
@@ -137,6 +138,14 @@ const errorClass = 'mt-2 text-lg leading-snug font-medium text-rust-700';
       </button>
       <p class="text-lg font-medium text-ink/80" role="status" data-enquiry-status></p>
     </div>
+    <p class="text-base leading-snug font-medium text-ink/70 sm:col-span-2">
+      Your details are used only to reply to your enquiry.{' '}
+      <a
+        href="/privacy"
+        class="whitespace-nowrap underline decoration-gold-500 decoration-1 underline-offset-[0.25em] hover:text-gold-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold-700"
+        >Privacy &amp; cookies</a
+      >
+    </p>
   </form>
 
   <div class="mx-auto mt-10 max-w-[40rem] focus:outline-none sm:mt-12" tabindex="-1" hidden data-enquiry-sent>

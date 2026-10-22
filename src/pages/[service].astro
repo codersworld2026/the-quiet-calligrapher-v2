@@ -1,0 +1,36 @@
+---
+import Artwork from '../components/Artwork.astro';
+import Contact from '../components/Contact.astro';
+import Engraving from '../components/Engraving.astro';
+import { services, type Service } from '../components/services';
+import Stationery from '../components/Stationery.astro';
+import Tuition from '../components/Tuition.astro';
+import Workshops from '../components/Workshops.astro';
+import Layout from '../layouts/Layout.astro';
+
+// Each service has a page of its own (/event-stationery and so on), so it can be found in searches for that service:
+// its homepage section, then the enquiry form with the service already chosen.
+export function getStaticPaths() {
+  return services.map((service) => ({ params: { service: service.slug }, props: { service } }));
+}
+
+interface Props {
+  service: Service;
+}
+
+const sections = {
+  stationery: Stationery,
+  engraving: Engraving,
+  artwork: Artwork,
+  workshops: Workshops,
+  tuition: Tuition
+};
+
+const { service } = Astro.props;
+const Section = sections[service.id as keyof typeof sections];
+---
+
+<Layout service={service}>
+  <Section />
+  <Contact service={service.title} />
+</Layout>
