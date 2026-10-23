@@ -29,7 +29,7 @@ export const services: Service[] = [
     label: 'Event Stationery',
     pageTitle: 'Event Stationery & Place Cards, Birmingham',
     description:
-      'Hand-lettered place cards, escort cards, menus, table numbers and seating charts in Copperplate calligraphy for weddings, corporate events and dinner parties.',
+      'Hand-lettered place cards, invitations, menus, table numbers and seating charts in Copperplate calligraphy for weddings, corporate events and dinner parties.',
     photo: placeCardsPhoto,
     photoPosition: 'top'
   },
