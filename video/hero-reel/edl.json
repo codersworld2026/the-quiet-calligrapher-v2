@@ -3,11 +3,13 @@
   "sources": {
     "de40366f": "/Users/hamza.suliman/the_quiet_calligrapher/client-media-inbox/de40366f-919e-4f7c-841a-c27149cd8859.MP4",
     "100024b4": "/Users/hamza.suliman/the_quiet_calligrapher/client-media-inbox/100024b4-7358-4bf7-9a26-900d49ad3fdc.MP4",
+    "sienna": "/Users/hamza.suliman/the-quiet-calligrapher-v2/client-photos/engraved-tumbler-sienna.jpg",
     "3545a7a3": "/Users/hamza.suliman/the_quiet_calligrapher/client-media-inbox/3545a7a3-38f4-49d7-81f7-c1b7fc7a3ae5.MP4",
     "perfume": "/Users/hamza.suliman/the-quiet-calligrapher-v2/client-photos/engraved-perfume-father-of-the-bride.jpg",
     "bc369417": "/Users/hamza.suliman/the_quiet_calligrapher/client-media-inbox/bc369417-4dad-42df-be6f-e3deb70b79de.MP4",
     "bronte": "/Users/hamza.suliman/the-quiet-calligrapher-v2/client-photos/red-ink-gold-leaf-emily-bronte-quote.png",
     "4324820d": "/Users/hamza.suliman/the_quiet_calligrapher/client-media-inbox/4324820d-7c7d-42fc-937e-5b8fca43bfd5.MP4",
+    "heirloom": "/Users/hamza.suliman/the-quiet-calligrapher-v2/client-photos/burgundy-ink-heirloom-quote.png",
     "hera": "/Users/hamza.suliman/the-quiet-calligrapher-v2/client-photos/gold-ink-german-barque-hera.jpg"
   },
   "output": {
@@ -18,8 +20,8 @@
     "loop": true,
     "crf_h264": 28,
     "crf_av1": 44,
-    "posters": [0, 6.67, 13.33],
-    "panel_starts": [0, 6.67, 13.33]
+    "posters": [0, 8.33, 16.67],
+    "panel_starts": [0, 8.33, 16.67]
   },
   "ranges": [
     {
@@ -41,6 +43,15 @@
       "grade": "hue=h=6:s=0.8",
       "beat": "SCALE",
       "reason": "Pull-back to the wall of finished envelopes. 1.5x so the reveal completes inside the shot."
+    },
+    {
+      "type": "still",
+      "source": "sienna",
+      "from": [112, 0, 562],
+      "to": [180, 60, 517],
+      "grade": "colorlevels=rimax=0.95:gimax=0.97:bomax=0.95",
+      "beat": "ENGRAVING",
+      "reason": "'Sienna' engraved on a white tumbler on white satin, added at the user's request (2026-10-23). Handle in frame at the start; slow 8% push-in onto the name. Only 786px wide (as sent), so it is upscaled about 1.4x. The satin was cool (R-B -8), so it is warmed to match the paper."
     },
     {
       "source": "3545a7a3",
@@ -89,6 +100,15 @@
       "grade": "colorlevels=rimax=0.979:bomax=0.946",
       "beat": "VOWS",
       "reason": "Full vows page with pen and ink. Starts after the source's cut at 9.06s; slowed 5% to fill 3s."
+    },
+    {
+      "type": "still",
+      "source": "heirloom",
+      "from": [40, 0, 1152],
+      "to": [440, 0, 1152],
+      "grade": "colorlevels=rimax=0.99:bomax=0.965",
+      "beat": "QUOTE",
+      "reason": "'A timeless heirloom...' quote in deep red ink on textured paper, with the pen and ink, added at the user's request (2026-10-23). The quote is wider than the 9:16 frame, so the camera glides right from the pen to 'of a lifetime.' Warmed slightly to match the Bronte quote."
     },
     {
       "type": "still",

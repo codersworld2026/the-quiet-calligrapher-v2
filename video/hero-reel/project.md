@@ -63,3 +63,26 @@
   - The intermediates are large, so keep them out of the project.
   - Copy `final-av1.mp4`, `final-h264.mp4` and the posters (at the `posters` times) to `public/video/` under the hero-reel names.
   - If the shot count or length changes, update `panelStarts` in `src/components/Hero.astro` to match `panel_starts`.
+
+## Session 3 — 2026-10-23
+
+**Strategy (the client's request):** two new photos were added: "Sienna" engraved on a white tumbler, and the "A timeless heirloom…" quote in deep red ink. That makes ten shots at the same 2.5s pace, so the loop is now 25 seconds, following Session 2's choice of a longer film over quicker cuts.
+
+**Decisions:**
+- **Order:** "Arian" writing → envelope wall → Sienna → "Flora" → Father of the Bride → gold-ink vows → Brontë quote → black-ink vows → heirloom quote → Hera.
+  - The existing eight keep their order, and Hera still dissolves into the opening shot.
+  - The panels are 3⅓ shots apart, so shots 3 or 4 apart in the loop can play side by side, while shots 1, 2 or 5 apart never do. The two engravings (Sienna, perfume) and the two red-ink quotes (Brontë, heirloom) are each 2 apart, so neither pair shows at once on wide screens.
+  - Clips and photos alternate from the envelope wall to the black-ink vows.
+- **Moves:**
+  - Sienna: from [112, 0, 562] to [180, 60, 517], an 8% push-in onto the name that keeps the handle in frame at the start.
+  - Heirloom: the quote is wider than the frame, so a full-height window glides right from [40, 0, 1152] to [440, 0, 1152], from the pen to "of a lifetime."
+- **Grades:** measured on the brightest fifth of each photo.
+  - Sienna's satin was cool (R−B −8), so it gets `rimax=0.95:gimax=0.97:bomax=0.95` (about +14).
+  - The heirloom paper (+6) gets `rimax=0.99:bomax=0.965` (about +17).
+  - These match the graded Brontë (+17) and Hera (+15).
+- **Panel starts and posters:** 0, 8.33 and 16.67s. The first panels open on Arian, Flora and Brontë.
+- **Encodes:** CRFs are unchanged. AV1 is 2.7 MB (SSIM 0.977) and H.264 4.3 MB (0.969), each about a quarter larger than before because the film is longer.
+
+**Outstanding:**
+- The Sienna photo is only 786×1000, the size it arrived at, so it's upscaled about 1.4×. The phone's full-size original would make it sharper.
+- The client-photos copy still has the phone's EXIF, including GPS. It stays on this computer, and video frames carry no EXIF.
