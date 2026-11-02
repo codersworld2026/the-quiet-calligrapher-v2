@@ -86,3 +86,30 @@
 **Outstanding:**
 - The Sienna photo is only 786×1000, the size it arrived at, so it's upscaled about 1.4×. The phone's full-size original would make it sharper.
 - The client-photos copy still has the phone's EXIF, including GPS. It stays on this computer, and video frames carry no EXIF.
+
+## Session 4 — 2026-11-02
+
+**Strategy (confirmed by the user):** the writing clip (`de40366f`, "Arian" in white on a red envelope) is removed. Two photos from the homepage take its place at the start of the film:
+- the Copperplate capitals exemplar (Tuition);
+- the three Copperplate workbooks (Workshops & Workbooks).
+
+Those were the only services with nothing in the film. Everything else stays as it was. That makes eleven shots of 2.5s, so the loop is now 27.5 seconds.
+
+- **Skipped photos:**
+  - The red-envelopes photo, because it's the red envelopes being removed.
+  - The Brontë quote, because it's already in the film.
+  - The wedding vows, because two vows shots are already in it.
+  - The "Sophie" place cards, which the user turned down as a hero image on 2026-10-18.
+- **An earlier misreading, reverted:** on 2026-10-26 a still of this clip was taken as a request to make the whole film that one clip. It was never committed, and it was reverted.
+
+**Decisions:**
+- **Order:** exemplar → workbooks → envelope wall → Sienna → "Flora" → Father of the Bride → gold-ink vows → Brontë → black-ink vows → heirloom → Hera.
+  - The exemplar opens the film, so it's the poster and the first image on phones.
+- **Moves:**
+  - Exemplar: from [192, 0, 1152] to [238, 0, 1060], an 8% push-in toward the title. It stays centred and keeps the ink pot and pen in frame.
+  - Workbooks: the photo is landscape, so a full-height window glides right from [430, 0, 864] to [730, 0, 864], across the middle book from the pen stand to the ink pot. That's about 250 output pixels, like the heirloom glide.
+  - Both are downscaled (1152 and 864 pixels wide to 720), so they're sharper than the clip they replace, which was upscaled 1.55×.
+- **Grades:** measured on the paper.
+  - Exemplar (R−B +2) gets `rimax=0.975:gimax=0.99:bomax=0.965` (about +16).
+  - Workbooks' white margins (+21, under warm desk light) get `romax=0.995:bimax=0.985` (about +16).
+- **Panel starts and posters:** 0, 9.17 and 18.33s, a third of the loop apart. The panels open on the exemplar, Sienna and Brontë.
