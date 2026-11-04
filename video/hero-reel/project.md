@@ -113,3 +113,19 @@ Those were the only services with nothing in the film. Everything else stays as 
   - Exemplar (R−B +2) gets `rimax=0.975:gimax=0.99:bomax=0.965` (about +16).
   - Workbooks' white margins (+21, under warm desk light) get `romax=0.995:bimax=0.985` (about +16).
 - **Panel starts and posters:** 0, 9.17 and 18.33s, a third of the loop apart. The panels open on the exemplar, Sienna and Brontë.
+
+## Session 5 — 2026-11-04
+
+**Strategy (the user's request):** the envelope wall (`100024b4`, the red envelopes with guest names) is removed. The film now opens with the red-ink pieces and the perfumes: Brontë, then Father of the Bride, then a new photo of "Mrs" engraved on a Chanel Chance bottle, then the heirloom quote. The rest follow in their Session 4 order. Still eleven shots of 2.5s, so the loop stays 27.5 seconds.
+
+**Decisions:**
+- **Order:** Brontë → Father of the Bride → Chanel "Mrs" → heirloom → exemplar → workbooks → Sienna → "Flora" → gold-ink vows → black-ink vows → Hera.
+  - "red-ink-gold-leaf" was read as the Brontë piece already in the film. `red-ink-gold-leaf-handmade-paper.jpg` is a close crop of the same piece.
+  - Brontë opens the film, so it's the poster and the first image on phones. Hera still dissolves into it at the loop.
+- **Chanel "Mrs"** (`engraved-chanel-chance-mrs.jpg`, 1508×2084):
+  - Move: from [150, 0, 1172] to [187.4, 81.8, 1085.4], an 8% push-in centred on "Mrs", with the rose and bottle in frame. It's downscaled, so it's sharp.
+  - Grade: its satin was neutral grey (R−B +1 on near-neutral pixels), so it gets `rimax=0.98:bomax=0.98` (about +5). That matches the graded Brontë satin (+6). Its brightest fifth is mostly sunlit leaves, so it couldn't be matched on that.
+- **Panel starts and posters:** even thirds (0, 9.17 and 18.33s) would have opened wide screens on Brontë beside the heirloom quote (two red-ink quotes). The starts are now 0, 10.83 and 19.17s (4⅓ and 7⅔ shots in), so wide screens open on Brontë, the exemplar and "Flora". The panels still change 0.83s apart. With this order, the two red quotes (3 apart) and the Chanel and Sienna engravings (4 apart) can still meet side by side later in the loop. No panel spacing avoids every such pair.
+- **Encodes:** CRFs are unchanged. AV1 is 2.8 MB (SSIM 0.975 against the master) and H.264 4.3 MB (0.964).
+
+**Outstanding:** as before, the three remaining footage clips are low resolution, and Sienna is upscaled about 1.4×.

@@ -1,16 +1,16 @@
 {
   "version": 2,
   "sources": {
+    "bronte": "/Users/hamza.suliman/the-quiet-calligrapher-v2/client-photos/red-ink-gold-leaf-emily-bronte-quote.png",
+    "perfume": "/Users/hamza.suliman/the-quiet-calligrapher-v2/client-photos/engraved-perfume-father-of-the-bride.jpg",
+    "chanel": "/Users/hamza.suliman/the-quiet-calligrapher-v2/client-photos/engraved-chanel-chance-mrs.jpg",
+    "heirloom": "/Users/hamza.suliman/the-quiet-calligrapher-v2/client-photos/burgundy-ink-heirloom-quote.png",
     "exemplar": "/Users/hamza.suliman/the-quiet-calligrapher-v2/src/assets/images/copperplate-capitals-exemplar.jpg",
     "workbooks": "/Users/hamza.suliman/the-quiet-calligrapher-v2/src/assets/images/copperplate-workbooks.jpg",
-    "100024b4": "/Users/hamza.suliman/the_quiet_calligrapher/client-media-inbox/100024b4-7358-4bf7-9a26-900d49ad3fdc.MP4",
     "sienna": "/Users/hamza.suliman/the-quiet-calligrapher-v2/client-photos/engraved-tumbler-sienna.jpg",
     "3545a7a3": "/Users/hamza.suliman/the_quiet_calligrapher/client-media-inbox/3545a7a3-38f4-49d7-81f7-c1b7fc7a3ae5.MP4",
-    "perfume": "/Users/hamza.suliman/the-quiet-calligrapher-v2/client-photos/engraved-perfume-father-of-the-bride.jpg",
     "bc369417": "/Users/hamza.suliman/the_quiet_calligrapher/client-media-inbox/bc369417-4dad-42df-be6f-e3deb70b79de.MP4",
-    "bronte": "/Users/hamza.suliman/the-quiet-calligrapher-v2/client-photos/red-ink-gold-leaf-emily-bronte-quote.png",
     "4324820d": "/Users/hamza.suliman/the_quiet_calligrapher/client-media-inbox/4324820d-7c7d-42fc-937e-5b8fca43bfd5.MP4",
-    "heirloom": "/Users/hamza.suliman/the-quiet-calligrapher-v2/client-photos/burgundy-ink-heirloom-quote.png",
     "hera": "/Users/hamza.suliman/the-quiet-calligrapher-v2/client-photos/gold-ink-german-barque-hera.jpg"
   },
   "output": {
@@ -21,10 +21,46 @@
     "loop": true,
     "crf_h264": 28,
     "crf_av1": 44,
-    "posters": [0, 9.17, 18.33],
-    "panel_starts": [0, 9.17, 18.33]
+    "posters": [0, 10.83, 19.17],
+    "panel_starts": [0, 10.83, 19.17]
   },
   "ranges": [
+    {
+      "type": "still",
+      "source": "bronte",
+      "from": [184, 0, 1152],
+      "to": [201.7, 131.9, 1066.7],
+      "grade": "colorlevels=rimax=0.971:gimax=0.987:bomax=0.978",
+      "beat": "ARTWORK",
+      "reason": "Emily Bronte quote in red ink on gold-leaf-edged handmade paper. Opens the film at the user's request (2026-11-04), so it is the poster and the first image on phones. Whole quote and the rose in frame; slow 8% push-in onto the words."
+    },
+    {
+      "type": "still",
+      "source": "perfume",
+      "from": [269, 0, 1152],
+      "to": [356.7, 101.9, 1066.7],
+      "grade": "colorlevels=rimax=0.976:bomax=0.97",
+      "beat": "ENGRAVING",
+      "reason": "'Father of the Bride' engraved on a perfume bottle, replacing the candle at the user's request. Slow 8% push-in onto the lettering. Warmed only: its marble highlights already sit near white."
+    },
+    {
+      "type": "still",
+      "source": "chanel",
+      "from": [150, 0, 1172],
+      "to": [187.4, 81.8, 1085.4],
+      "grade": "colorlevels=rimax=0.98:bomax=0.98",
+      "beat": "ENGRAVING",
+      "reason": "'Mrs' engraved in gold on a Chanel Chance bottle beside a red rose, added at the user's request (2026-11-04), straight after the Father of the Bride perfume. Rose and bottle in frame; slow 8% push-in centred on 'Mrs'. Downscaled from 1172px wide. Its satin was neutral grey (R-B +1), so it is warmed slightly to match the Bronte shot's satin (about +5)."
+    },
+    {
+      "type": "still",
+      "source": "heirloom",
+      "from": [40, 0, 1152],
+      "to": [440, 0, 1152],
+      "grade": "colorlevels=rimax=0.99:bomax=0.965",
+      "beat": "QUOTE",
+      "reason": "'A timeless heirloom...' quote in deep red ink on textured paper, with the pen and ink, added at the user's request (2026-10-23). The quote is wider than the 9:16 frame, so the camera glides right from the pen to 'of a lifetime.' Warmed slightly to match the Bronte quote."
+    },
     {
       "type": "still",
       "source": "exemplar",
@@ -32,7 +68,7 @@
       "to": [238, 0, 1060],
       "grade": "colorlevels=rimax=0.975:gimax=0.99:bomax=0.965",
       "beat": "TUITION",
-      "reason": "Copperplate capitals exemplar from the Tuition section, replacing the red-envelope writing clip at the user's request (2026-11-02). Opens the film, so it is the first image on phones. Slow 8% push-in toward the title, keeping the ink pot and pen in frame. The paper was neutral (R-B +2), so it is warmed to match the others (about +16)."
+      "reason": "Copperplate capitals exemplar from the Tuition section, replacing the red-envelope writing clip at the user's request (2026-11-02). Opened the film until 2026-11-04; now follows the heirloom quote. Slow 8% push-in toward the title, keeping the ink pot and pen in frame. The paper was neutral (R-B +2), so it is warmed to match the others (about +16)."
     },
     {
       "type": "still",
@@ -42,16 +78,6 @@
       "grade": "colorlevels=romax=0.995:bimax=0.985",
       "beat": "WORKBOOKS",
       "reason": "The three Copperplate workbooks from the Workshops section, added with the exemplar in place of the writing clip. The photo is landscape, so a full-height window glides right across the middle workbook, from the pen stand to the ink pot. Warm desk light put the page margins at R-B +21, so it is cooled slightly (about +16)."
-    },
-    {
-      "source": "100024b4",
-      "start": 5.0,
-      "end": 9.5,
-      "speed": 1.5,
-      "crop": "432:768:72:0",
-      "grade": "hue=h=6:s=0.8",
-      "beat": "SCALE",
-      "reason": "Pull-back to the wall of finished envelopes. 1.5x so the reveal completes inside the shot."
     },
     {
       "type": "still",
@@ -73,15 +99,6 @@
       "reason": "'Flora' heart place card centred; crop removes the source's black side bars."
     },
     {
-      "type": "still",
-      "source": "perfume",
-      "from": [269, 0, 1152],
-      "to": [356.7, 101.9, 1066.7],
-      "grade": "colorlevels=rimax=0.976:bomax=0.97",
-      "beat": "ENGRAVING",
-      "reason": "'Father of the Bride' engraved on a perfume bottle, replacing the candle at the user's request. Slow 8% push-in onto the lettering. Warmed only: its marble highlights already sit near white."
-    },
-    {
       "source": "bc369417",
       "start": 4.5,
       "end": 7.5,
@@ -92,15 +109,6 @@
       "reason": "Gold-ink vows filling the frame; before the source's cut at 8.23s. Moved ahead of the black-ink vows so the two gold-ink pieces sit apart."
     },
     {
-      "type": "still",
-      "source": "bronte",
-      "from": [184, 0, 1152],
-      "to": [201.7, 131.9, 1066.7],
-      "grade": "colorlevels=rimax=0.971:gimax=0.987:bomax=0.978",
-      "beat": "ARTWORK",
-      "reason": "Emily Bronte quote in red ink on gold-leaf-edged handmade paper, added at the user's request. Whole quote and the rose in frame; slow 8% push-in onto the words."
-    },
-    {
       "source": "4324820d",
       "start": 9.1,
       "end": 11.96,
@@ -109,15 +117,6 @@
       "grade": "colorlevels=rimax=0.979:bomax=0.946",
       "beat": "VOWS",
       "reason": "Full vows page with pen and ink. Starts after the source's cut at 9.06s; slowed 5% to fill 3s."
-    },
-    {
-      "type": "still",
-      "source": "heirloom",
-      "from": [40, 0, 1152],
-      "to": [440, 0, 1152],
-      "grade": "colorlevels=rimax=0.99:bomax=0.965",
-      "beat": "QUOTE",
-      "reason": "'A timeless heirloom...' quote in deep red ink on textured paper, with the pen and ink, added at the user's request (2026-10-23). The quote is wider than the 9:16 frame, so the camera glides right from the pen to 'of a lifetime.' Warmed slightly to match the Bronte quote."
     },
     {
       "type": "still",
@@ -132,6 +131,7 @@
   "excluded": {
     "b68d3ec0": "Shows a client's full name and postal address.",
     "de40366f": "'Arian' written in white on a red envelope (the film's opening shot until 2026-11-02). Replaced by the exemplar and workbooks photos at the user's request.",
-    "3a4e5f5f": "Engraved 'Congratulations' candle. Replaced by the Father of the Bride photo at the user's request (2026-10-19)."
+    "3a4e5f5f": "Engraved 'Congratulations' candle. Replaced by the Father of the Bride photo at the user's request (2026-10-19).",
+    "100024b4": "Pull-back to the wall of red envelopes with guest names (in the film from 2026-10-18). Removed at the user's request (2026-11-04)."
   }
 }
