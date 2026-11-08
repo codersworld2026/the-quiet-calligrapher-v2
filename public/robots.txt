@@ -1,4 +1,5 @@
 User-agent: *
 Allow: /
+Disallow: /collection/admin
 
 Sitemap: https://www.thequietcalligrapher.com/sitemap-index.xml

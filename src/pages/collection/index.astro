@@ -1,0 +1,169 @@
+---
+import Contact from '../../components/Contact.astro';
+import Layout from '../../layouts/Layout.astro';
+import { categories, categoryLabel } from '../../collection/categories';
+import { listPieces, type Piece } from '../../collection/pieces';
+import { photoSrc, photoSrcset } from '../../collection/photos';
+
+export const prerender = false;
+
+// The Collection: every photo Aliya has added from her page, newest first, with a filter for each category that has
+// photos in it. The page is read when it's visited and Vercel keeps it for a minute, so new photos appear within a
+// minute of being added.
+let pieces: Piece[] = [];
+let unavailable = false;
+try {
+  pieces = await listPieces();
+} catch (error) {
+  console.error(error);
+  unavailable = true;
+}
+Astro.response.headers.set(
+  'Cache-Control',
+  unavailable ? 'no-store' : 'public, max-age=0, s-maxage=60, stale-while-revalidate=86400'
+);
+
+const filters = categories
+  .map(({ id, label }) => ({ id, label, count: pieces.filter((piece) => piece.category === id).length }))
+  .filter(({ count }) => count > 0);
+const chosen = filters.find(({ id }) => id === Astro.url.searchParams.get('category'))?.id;
+const shown = chosen ? pieces.filter((piece) => piece.category === chosen) : pieces;
+
+const filterClass =
+  'inline-flex min-h-11 items-center gap-2 border px-4 font-sans text-[0.6875rem] font-medium tracking-[0.18em] uppercase focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold-700';
+---
+
+<Layout
+  title="The Collection"
+  description="A living collection of Aliya’s latest work from the desk: event stationery, engraving, bespoke artwork, workshops and Copperplate tuition."
+>
+  <section aria-labelledby="collection-heading" class="bg-forest-900 px-gutter py-16 text-cream-50 sm:py-20">
+    <div class="mx-auto max-w-[77rem]">
+      <span class="block h-px w-16 bg-gold-400" aria-hidden="true"></span>
+      <h1 id="collection-heading" class="mt-6 text-[2.75rem] leading-tight sm:text-6xl lg:text-[4rem]">The Collection</h1>
+      <p class="mt-3 text-xl leading-snug font-medium text-cream-100/85 sm:text-2xl">
+        A living collection of work from the desk.
+      </p>
+    </div>
+  </section>
+
+  <section aria-label="Photos" class="bg-cream-100 px-gutter py-12 sm:py-16 lg:py-20">
+    <div class="mx-auto max-w-[77rem]">
+      {
+        filters.length > 1 && (
+          <nav aria-label="Categories" class="mb-10 flex flex-wrap gap-2">
+            <a
+              href="/collection"
+              aria-current={!chosen ? 'page' : undefined}
+              class:list={[
+                filterClass,
+                !chosen ? 'border-forest-900 bg-forest-900 text-cream-50' : 'border-gold-500 text-gold-700 hover:border-gold-700'
+              ]}
+            >
+              All <span class="opacity-70">{pieces.length}</span>
+            </a>
+            {filters.map(({ id, label, count }) => (
+              <a
+                href={`/collection?category=${id}`}
+                aria-current={chosen === id ? 'page' : undefined}
+                class:list={[
+                  filterClass,
+                  chosen === id
+                    ? 'border-forest-900 bg-forest-900 text-cream-50'
+                    : 'border-gold-500 text-gold-700 hover:border-gold-700'
+                ]}
+              >
+                {label} <span class="opacity-70">{count}</span>
+              </a>
+            ))}
+          </nav>
+        )
+      }
+
+      {
+        unavailable ? (
+          <p class="text-lg font-medium text-ink/80">The Collection couldn’t be opened just now. Please try again shortly.</p>
+        ) : shown.length === 0 ? (
+          <p class="text-lg font-medium text-ink/80">New work from the desk is on its way.</p>
+        ) : (
+          <ul class="gap-4 sm:columns-2 lg:columns-3 lg:gap-6">
+            {shown.map((piece, index) => (
+              <li class="mb-4 break-inside-avoid lg:mb-6">
+                <figure>
+                  <a
+                    href={photoSrc(piece.photo, 2000)}
+                    data-piece
+                    data-caption={piece.caption}
+                    class="block focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gold-700"
+                  >
+                    <img
+                      src={photoSrc(piece.photo, 800)}
+                      srcset={photoSrcset(piece.photo, piece.width)}
+                      sizes="(min-width: 1440px) 400px, (min-width: 1024px) 30vw, (min-width: 640px) 45vw, 86vw"
+                      width={piece.width}
+                      height={piece.height}
+                      alt={piece.caption || `${categoryLabel(piece.category)} by The Quiet Calligrapher`}
+                      loading={index < 3 ? 'eager' : 'lazy'}
+                      decoding="async"
+                      class="h-auto w-full bg-cream-200"
+                    />
+                  </a>
+                  {piece.caption && (
+                    <figcaption class="mt-2 text-base leading-snug font-medium text-ink/75">{piece.caption}</figcaption>
+                  )}
+                </figure>
+              </li>
+            ))}
+          </ul>
+        )
+      }
+    </div>
+  </section>
+
+  <dialog
+    data-lightbox
+    aria-label="Enlarged photo"
+    class="m-auto max-h-[100dvh] max-w-[100vw] bg-transparent p-4 backdrop:bg-forest-950/90 sm:p-8"
+  >
+    <figure class="grid justify-items-center gap-3">
+      <img alt="" class="max-h-[82dvh] w-auto max-w-full object-contain" />
+      <figcaption class="max-w-[40rem] text-center text-lg leading-snug font-medium text-cream-50"></figcaption>
+    </figure>
+    <button
+      type="button"
+      data-close
+      class="fixed top-3 right-3 grid size-11 cursor-pointer place-items-center rounded-full bg-forest-950/70 text-cream-50 hover:bg-forest-950 focus-visible:outline-2 focus-visible:outline-gold-300"
+    >
+      <svg class="size-4" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+        <path d="M2 2l12 12M14 2L2 14" stroke="currentColor" stroke-width="1.5"></path>
+      </svg>
+      <span class="sr-only">Close</span>
+    </button>
+  </dialog>
+
+  <Contact />
+</Layout>
+
+<script>
+  // Tapping a photo opens it larger over the page; Escape, the close button or tapping outside it closes it. Without
+  // the script, the link opens the large photo on its own.
+  const dialog = document.querySelector<HTMLDialogElement>('[data-lightbox]');
+  if (dialog) {
+    const image = dialog.querySelector('img')!;
+    const caption = dialog.querySelector('figcaption')!;
+    document.addEventListener('click', (event) => {
+      const link = (event.target as Element).closest<HTMLAnchorElement>('[data-piece]');
+      if (!link) return;
+      event.preventDefault();
+      image.src = link.href;
+      image.alt = link.querySelector('img')?.alt ?? '';
+      caption.textContent = link.dataset.caption ?? '';
+      dialog.showModal();
+    });
+    dialog.addEventListener('click', (event) => {
+      if (event.target === dialog) dialog.close();
+    });
+    dialog.querySelector('[data-close]')!.addEventListener('click', () => dialog.close());
+    dialog.addEventListener('close', () => image.removeAttribute('src'));
+  }
+</script>

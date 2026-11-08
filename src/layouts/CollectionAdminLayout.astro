@@ -1,0 +1,62 @@
+---
+import '../styles/global.css';
+import { Font } from 'astro:assets';
+
+// Aliya's private pages for The Collection: the site's colours and type without its menus, and kept out of search
+// engines.
+interface Props {
+  title: string;
+  // Shows the sign-out button.
+  signedIn?: boolean;
+}
+
+const { title, signedIn } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en-GB">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>{title} | The Collection</title>
+    <link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48" />
+    <link rel="icon" href="/icon-192.png" type="image/png" sizes="192x192" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <Font cssVariable="--font-cormorant-garamond" />
+    <Font cssVariable="--font-jost" />
+  </head>
+  <body class="min-h-screen bg-cream-50 font-serif text-ink antialiased">
+    <header class="bg-forest-900 px-gutter py-4 text-cream-50">
+      <div class="mx-auto flex max-w-[60rem] flex-wrap items-center justify-between gap-x-6 gap-y-2">
+        <a
+          href="/collection/admin"
+          class="font-serif text-xl tracking-[0.2em] uppercase focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gold-300"
+          >The Collection</a
+        >
+        <div class="flex items-center gap-5 font-sans text-xs font-medium tracking-[0.18em] uppercase">
+          <a href="/collection" class="py-2 text-gold-200 hover:text-gold-300 focus-visible:outline-2 focus-visible:outline-gold-300"
+            >View on the site</a
+          >
+          {
+            signedIn && (
+              <form method="post" action="/collection/admin/sign-out">
+                <button
+                  type="submit"
+                  class="cursor-pointer py-2 tracking-[0.18em] uppercase hover:text-gold-300 focus-visible:outline-2 focus-visible:outline-gold-300"
+                >
+                  Sign out
+                </button>
+              </form>
+            )
+          }
+        </div>
+      </div>
+    </header>
+    <main class="px-gutter py-10 sm:py-14">
+      <div class="mx-auto max-w-[60rem]">
+        <slot />
+      </div>
+    </main>
+  </body>
+</html>

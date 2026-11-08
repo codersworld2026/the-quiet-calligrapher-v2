@@ -22,9 +22,12 @@ pnpm-debug.log*
 .idea/
 .vercel
 
-# The GitHub repository is public: the client's original photos stay on this computer (only the folder's notes and the
-# name lettering the wordmark is traced from are committed). Screenshots are regenerated after every change.
+# The GitHub repository is public: the client's original photos and videos stay on this computer (only the folders'
+# notes and the name lettering the wordmark is traced from are committed). Screenshots are regenerated after every change.
 client-photos/*
 !client-photos/README.md
 !client-photos/aliya-name-lettering.png
+client-videos/*
+!client-videos/README.md
 screenshots/
+.env*.local
