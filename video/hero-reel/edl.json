@@ -5,8 +5,6 @@
     "perfume": "/Users/hamza.suliman/the-quiet-calligrapher-v2/client-photos/engraved-perfume-father-of-the-bride.jpg",
     "chanel": "/Users/hamza.suliman/the-quiet-calligrapher-v2/client-photos/engraved-chanel-chance-mrs.jpg",
     "heirloom": "/Users/hamza.suliman/the-quiet-calligrapher-v2/client-photos/burgundy-ink-heirloom-quote.png",
-    "exemplar": "/Users/hamza.suliman/the-quiet-calligrapher-v2/src/assets/images/copperplate-capitals-exemplar.jpg",
-    "workbooks": "/Users/hamza.suliman/the-quiet-calligrapher-v2/src/assets/images/copperplate-workbooks.jpg",
     "sienna": "/Users/hamza.suliman/the-quiet-calligrapher-v2/client-photos/engraved-tumbler-sienna.jpg",
     "3545a7a3": "/Users/hamza.suliman/the_quiet_calligrapher/client-media-inbox/3545a7a3-38f4-49d7-81f7-c1b7fc7a3ae5.MP4",
     "bc369417": "/Users/hamza.suliman/the_quiet_calligrapher/client-media-inbox/bc369417-4dad-42df-be6f-e3deb70b79de.MP4",
@@ -21,8 +19,8 @@
     "loop": true,
     "crf_h264": 28,
     "crf_av1": 44,
-    "posters": [0, 10.83, 19.17],
-    "panel_starts": [0, 10.83, 19.17]
+    "posters": [0, 10.83, 16.67],
+    "panel_starts": [0, 10.83, 16.67]
   },
   "ranges": [
     {
@@ -60,24 +58,6 @@
       "grade": "colorlevels=rimax=0.99:bomax=0.965",
       "beat": "QUOTE",
       "reason": "'A timeless heirloom...' quote in deep red ink on textured paper, with the pen and ink, added at the user's request (2026-10-23). The quote is wider than the 9:16 frame, so the camera glides right from the pen to 'of a lifetime.' Warmed slightly to match the Bronte quote."
-    },
-    {
-      "type": "still",
-      "source": "exemplar",
-      "from": [192, 0, 1152],
-      "to": [238, 0, 1060],
-      "grade": "colorlevels=rimax=0.975:gimax=0.99:bomax=0.965",
-      "beat": "TUITION",
-      "reason": "Copperplate capitals exemplar from the Tuition section, replacing the red-envelope writing clip at the user's request (2026-11-02). Opened the film until 2026-11-04; now follows the heirloom quote. Slow 8% push-in toward the title, keeping the ink pot and pen in frame. The paper was neutral (R-B +2), so it is warmed to match the others (about +16)."
-    },
-    {
-      "type": "still",
-      "source": "workbooks",
-      "from": [430, 0, 864],
-      "to": [730, 0, 864],
-      "grade": "colorlevels=romax=0.995:bimax=0.985",
-      "beat": "WORKBOOKS",
-      "reason": "The three Copperplate workbooks from the Workshops section, added with the exemplar in place of the writing clip. The photo is landscape, so a full-height window glides right across the middle workbook, from the pen stand to the ink pot. Warm desk light put the page margins at R-B +21, so it is cooled slightly (about +16)."
     },
     {
       "type": "still",
@@ -132,6 +112,8 @@
     "b68d3ec0": "Shows a client's full name and postal address.",
     "de40366f": "'Arian' written in white on a red envelope (the film's opening shot until 2026-11-02). Replaced by the exemplar and workbooks photos at the user's request.",
     "3a4e5f5f": "Engraved 'Congratulations' candle. Replaced by the Father of the Bride photo at the user's request (2026-10-19).",
-    "100024b4": "Pull-back to the wall of red envelopes with guest names (in the film from 2026-10-18). Removed at the user's request (2026-11-04)."
+    "100024b4": "Pull-back to the wall of red envelopes with guest names (in the film from 2026-10-18). Removed at the user's request (2026-11-04).",
+    "exemplar": "Copperplate capitals exemplar from the Tuition section (in the film 2026-11-02 to 2026-11-08). Removed at the user's request.",
+    "workbooks": "The three Copperplate workbooks from the Workshops section (in the film 2026-11-02 to 2026-11-08). Removed at the user's request."
   }
 }

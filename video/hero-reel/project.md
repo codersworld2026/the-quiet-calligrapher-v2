@@ -129,3 +129,17 @@ Those were the only services with nothing in the film. Everything else stays as 
 - **Encodes:** CRFs are unchanged. AV1 is 2.8 MB (SSIM 0.975 against the master) and H.264 4.3 MB (0.964).
 
 **Outstanding:** as before, the three remaining footage clips are low resolution, and Sienna is upscaled about 1.4×.
+
+## Session 6 — 2026-11-08
+
+**Strategy (the user's request, with screenshots of both):** the Copperplate capitals exemplar and the three workbooks are removed. Everything else keeps its Session 5 order. That leaves nine shots of 2.5s, so the loop is now 22.5 seconds.
+- Tuition and Workshops no longer appear in the film, as before Session 4.
+
+**Decisions:**
+- **Order:** Brontë → Father of the Bride → Chanel "Mrs" → heirloom → Sienna → "Flora" → gold-ink vows → black-ink vows → Hera.
+- **Panel starts and posters:** 0, 10.83 and 16.67s (4⅓ and 6⅔ shots in).
+  - Even thirds (3 shots each) would make all three panels change at the same moment.
+  - These starts open wide screens on Brontë, Sienna and the gold-ink vows, and the panels change 0.83s apart.
+  - The first two panels, which are all that 1024–1279px screens show, are always 4 or 5 shots apart, so they never pair similar pieces.
+  - The third panel runs 2 or 3 shots behind the first, so it can sometimes pair the red quotes, two engravings, or the two gold pieces. With nine shots, no spacing of three panels avoids every such pair.
+- **Cache busting:** `/video/*` is cached for a day, so returning visitors could keep the old cut. Hero.astro now adds `?v=6` to the film and poster addresses. Bump it with each new cut, including in the two Tailwind background classes, which must be written out in full.
