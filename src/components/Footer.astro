@@ -3,10 +3,11 @@ import { services } from './services';
 import SocialLinks from './SocialLinks.astro';
 import Wordmark from './Wordmark.astro';
 
-// Each service's own page, in page order, then About on the homepage. Contact comes last, grouped with the social icons
-// below; every page ends with the enquiry form, so it stays on the page.
+// Each service's own page, in page order, then The Collection and About on the homepage. Contact comes last, grouped
+// with the social icons below; every page ends with the enquiry form, so it stays on the page.
 const links = [
   ...services.map(({ slug, label }) => ({ href: `/${slug}`, label })),
+  { href: '/collection', label: 'The Collection' },
   { href: '/#about', label: 'The Journey' }
 ];
 
@@ -53,6 +54,8 @@ const year = new Date().getFullYear();
       <p class="flex flex-wrap items-center justify-center gap-x-5 font-sans text-xs tracking-[0.08em] text-cream-100/70">
         © {year} The Quiet Calligrapher
         <a href="/privacy" class={linkClass}>Privacy &amp; cookies</a>
+        {/* Where Aliya signs in to add photos to The Collection. */}
+        <a href="/collection/admin" rel="nofollow" class={linkClass}>Sign in</a>
       </p>
       {/* #top is the <body> (see Layout.astro), so keyboard focus also returns to the start of the page. */}
       <a href="#top" class={`gap-3 font-sans text-[0.6875rem] font-medium tracking-[0.22em] text-gold-200 uppercase ${linkClass}`}>

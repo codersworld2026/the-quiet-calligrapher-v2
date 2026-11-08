@@ -6,5 +6,6 @@
 /screenshots
 /video
 /client-photos
+/client-videos
 # Notes at the project root aren't needed to build the site.
 /*.md

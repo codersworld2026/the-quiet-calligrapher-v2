@@ -1,0 +1,315 @@
+---
+import CollectionAdminLayout from '../../../layouts/CollectionAdminLayout.astro';
+import { signedIn } from '../../../collection/auth';
+import { categories, categoryLabel } from '../../../collection/categories';
+import { listPieces } from '../../../collection/pieces';
+import { photoSrc } from '../../../collection/photos';
+
+export const prerender = false;
+
+// Aliya's page for The Collection: sign in, add photos, and change or delete the ones already there.
+const email = signedIn(Astro.cookies);
+const pieces = email ? await listPieces() : [];
+Astro.response.headers.set('Cache-Control', 'no-store');
+
+// The message after a form has been sent, named in the address (?notice=…) by the route that handled it.
+const notices: Record<string, string> = {
+  wrong: 'That email address or password isn’t right. Please try again.',
+  paused: 'Too many wrong tries. Please wait 15 minutes, then try again.',
+  'not-set-up': 'Signing in isn’t set up yet.',
+  unavailable: 'Signing in isn’t working just now. Please try again in a few minutes.',
+  'signed-out': 'You’re signed out.',
+  added: 'Added. Your photos will be on The Collection within a minute.',
+  saved: 'Saved.',
+  deleted: 'Deleted.',
+  missing: 'That photo couldn’t be found. It may already have been deleted.'
+};
+const notice = notices[Astro.url.searchParams.get('notice') ?? ''];
+
+const labelClass = 'block font-sans text-xs font-medium tracking-[0.2em] text-gold-700 uppercase';
+const fieldClass =
+  'mt-2 block w-full border border-gold-700 bg-cream-100 px-4 py-3 text-lg font-medium text-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold-700';
+const primaryButton =
+  'inline-flex h-14 cursor-pointer items-center border border-gold-700 bg-gold-700 px-8 font-sans text-[0.8125rem] font-medium tracking-[0.3em] text-cream-50 uppercase hover:bg-ink disabled:cursor-wait disabled:opacity-60 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gold-700';
+const smallButton =
+  'inline-flex min-h-11 cursor-pointer items-center border border-gold-500 px-4 font-sans text-[0.6875rem] font-medium tracking-[0.18em] text-gold-700 uppercase hover:border-gold-700 hover:bg-gold-700 hover:text-cream-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold-700';
+---
+
+<CollectionAdminLayout title={email ? 'Your photos' : 'Sign in'} signedIn={Boolean(email)}>
+  {
+    notice && (
+      <p role="status" class="mb-8 border-l-2 border-gold-500 bg-cream-100 px-5 py-4 text-lg leading-snug font-medium">
+        {notice}
+      </p>
+    )
+  }
+
+  {
+    !email && (
+      <section aria-labelledby="sign-in-heading" class="max-w-[30rem]">
+        <h1 id="sign-in-heading" class="text-[2.25rem] leading-tight sm:text-5xl">
+          Sign in
+        </h1>
+        <p class="mt-4 text-lg leading-[1.65] font-medium text-ink/80">Sign in to add photos to The Collection.</p>
+        <form method="post" action="/collection/admin/sign-in" class="mt-8 grid gap-6">
+          <div>
+            <label for="email" class={labelClass}>
+              Email
+            </label>
+            <input
+              id="email"
+              name="email"
+              type="email"
+              autocomplete="username"
+              autocapitalize="none"
+              spellcheck="false"
+              required
+              class={fieldClass}
+            />
+          </div>
+          <div>
+            <label for="password" class={labelClass}>
+              Password
+            </label>
+            <input id="password" name="password" type="password" autocomplete="current-password" required class={fieldClass} />
+          </div>
+          <div>
+            <button type="submit" class={primaryButton}>
+              Sign in
+            </button>
+          </div>
+        </form>
+      </section>
+    )
+  }
+
+  {
+    email && (
+      <>
+        <section aria-labelledby="add-heading">
+          <h1 id="add-heading" class="text-[2.25rem] leading-tight sm:text-5xl">
+            Add photos
+          </h1>
+          <form class="mt-8 grid max-w-[40rem] gap-6" data-upload novalidate>
+            <div>
+              <label for="photos" class={labelClass}>
+                Photos
+              </label>
+              <input
+                id="photos"
+                type="file"
+                accept="image/*"
+                multiple
+                class="mt-2 block w-full text-lg file:mr-4 file:cursor-pointer file:border file:border-gold-700 file:bg-cream-100 file:px-4 file:py-3 file:font-sans file:text-xs file:font-medium file:tracking-[0.18em] file:text-gold-700 file:uppercase"
+              />
+              <ul class="mt-4 grid grid-cols-3 gap-2 empty:hidden sm:grid-cols-4" data-previews />
+            </div>
+            <div>
+              <label for="category" class={labelClass}>
+                Category
+              </label>
+              <select id="category" class:list={[fieldClass, 'cursor-pointer']}>
+                <option value="">Choose one</option>
+                {categories.map(({ id, label }) => (
+                  <option value={id}>{label}</option>
+                ))}
+              </select>
+            </div>
+            <div>
+              <label for="caption" class={labelClass}>
+                Caption (optional)
+              </label>
+              <textarea id="caption" rows="3" maxlength="300" class:list={[fieldClass, 'resize-y']} />
+              <p class="mt-2 text-base leading-snug font-medium text-ink/70">
+                A few words about the piece, such as “Place cards for a June wedding”. It appears under the photo and
+                helps Google and screen readers. If you add several photos at once, they all get the same category and
+                caption, and you can change each one below afterwards.
+              </p>
+            </div>
+            <div class="flex flex-wrap items-center gap-x-6 gap-y-3">
+              <button type="submit" class={primaryButton}>
+                Add to The Collection
+              </button>
+              <p class="text-lg font-medium text-ink/80" role="status" data-upload-status />
+            </div>
+          </form>
+          <noscript>
+            <p class="mt-4 text-lg font-medium text-rust-700">Adding photos needs JavaScript switched on.</p>
+          </noscript>
+        </section>
+
+        <section aria-labelledby="photos-heading" class="mt-16 sm:mt-20">
+          <h2 id="photos-heading" class="text-[2rem] leading-tight sm:text-[2.5rem]">
+            In The Collection ({pieces.length})
+          </h2>
+          {pieces.length === 0 && (
+            <p class="mt-4 text-lg font-medium text-ink/70">Nothing yet. The first photos you add will appear here.</p>
+          )}
+          <ol class="mt-6">
+            {pieces.map((piece) => (
+              <li id={`photo-${piece.id}`} class="grid gap-5 border-t border-gold-500/40 py-8 sm:grid-cols-[11rem_1fr]">
+                <img
+                  src={photoSrc(piece.photo, 400)}
+                  width={piece.width}
+                  height={piece.height}
+                  alt=""
+                  loading="lazy"
+                  class="aspect-square w-full max-w-[11rem] bg-cream-200 object-cover"
+                />
+                <div class="grid gap-4">
+                  <p class="font-sans text-xs font-medium tracking-[0.2em] text-gold-700 uppercase">
+                    {categoryLabel(piece.category)}
+                  </p>
+                  <form method="post" action="/collection/admin/pieces" class="grid gap-4">
+                    <input type="hidden" name="id" value={piece.id} />
+                    <div>
+                      <label for={`category-${piece.id}`} class={labelClass}>
+                        Category
+                      </label>
+                      <select id={`category-${piece.id}`} name="category" class:list={[fieldClass, 'cursor-pointer']}>
+                        {categories.map(({ id, label }) => (
+                          <option value={id} selected={id === piece.category}>
+                            {label}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                    <div>
+                      <label for={`caption-${piece.id}`} class={labelClass}>
+                        Caption
+                      </label>
+                      <textarea
+                        id={`caption-${piece.id}`}
+                        name="caption"
+                        rows="2"
+                        maxlength="300"
+                        class:list={[fieldClass, 'resize-y']}
+                        set:text={piece.caption}
+                      />
+                    </div>
+                    <div>
+                      <button type="submit" name="action" value="save" class={smallButton}>
+                        Save changes
+                      </button>
+                    </div>
+                  </form>
+                  <details>
+                    <summary class:list={[smallButton, 'w-fit list-none [&::-webkit-details-marker]:hidden']}>Delete…</summary>
+                    <form method="post" action="/collection/admin/pieces" class="mt-3">
+                      <input type="hidden" name="id" value={piece.id} />
+                      <button
+                        type="submit"
+                        name="action"
+                        value="delete"
+                        class="inline-flex min-h-11 cursor-pointer items-center border border-rust-700 bg-rust-700 px-4 font-sans text-[0.6875rem] font-medium tracking-[0.18em] text-cream-50 uppercase hover:bg-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-rust-700"
+                      >
+                        Yes, delete this photo
+                      </button>
+                    </form>
+                  </details>
+                </div>
+              </li>
+            ))}
+          </ol>
+        </section>
+      </>
+    )
+  }
+</CollectionAdminLayout>
+
+<script>
+  // Shrinks each chosen photo in the browser and sends them one at a time. Shrinking keeps uploads quick on a phone,
+  // turns iPhone HEIC photos into JPEGs, and drops the camera's hidden details, such as where the photo was taken.
+  const form = document.querySelector<HTMLFormElement>('[data-upload]');
+  if (form) {
+    const input = form.querySelector<HTMLInputElement>('#photos')!;
+    const category = form.querySelector<HTMLSelectElement>('#category')!;
+    const caption = form.querySelector<HTMLTextAreaElement>('#caption')!;
+    const previews = form.querySelector<HTMLElement>('[data-previews]')!;
+    const status = form.querySelector<HTMLElement>('[data-upload-status]')!;
+    const button = form.querySelector<HTMLButtonElement>('button[type="submit"]')!;
+    const LONGEST_SIDE = 2400;
+    // Kept under the 4.5 MB a Vercel function accepts.
+    const MAX_BYTES = 3.8 * 1024 * 1024;
+
+    input.addEventListener('change', () => {
+      previews.replaceChildren(
+        ...[...(input.files ?? [])].map((file) => {
+          const item = document.createElement('li');
+          const image = document.createElement('img');
+          image.src = URL.createObjectURL(file);
+          image.alt = '';
+          image.className = 'aspect-square w-full bg-cream-200 object-cover';
+          image.addEventListener('load', () => URL.revokeObjectURL(image.src), { once: true });
+          item.append(image);
+          return item;
+        })
+      );
+    });
+
+    const shrink = async (file: File) => {
+      const url = URL.createObjectURL(file);
+      try {
+        const image = new Image();
+        image.src = url;
+        await image.decode();
+        const scale = Math.min(1, LONGEST_SIDE / Math.max(image.naturalWidth, image.naturalHeight));
+        const width = Math.round(image.naturalWidth * scale);
+        const height = Math.round(image.naturalHeight * scale);
+        const canvas = document.createElement('canvas');
+        canvas.width = width;
+        canvas.height = height;
+        canvas.getContext('2d')!.drawImage(image, 0, 0, width, height);
+        for (const quality of [0.86, 0.78, 0.7, 0.6]) {
+          const blob = await new Promise<Blob | null>((resolve) => canvas.toBlob(resolve, 'image/jpeg', quality));
+          if (blob && blob.size <= MAX_BYTES) return { blob, width, height };
+        }
+        throw new Error('too large');
+      } finally {
+        URL.revokeObjectURL(url);
+      }
+    };
+
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      const files = [...(input.files ?? [])];
+      if (!files.length) {
+        status.textContent = 'Please choose at least one photo.';
+        input.focus();
+        return;
+      }
+      if (!category.value) {
+        status.textContent = 'Please choose a category.';
+        category.focus();
+        return;
+      }
+
+      button.disabled = true;
+      for (const [index, file] of files.entries()) {
+        status.textContent = `Adding ${index + 1} of ${files.length}…`;
+        try {
+          const { blob, width, height } = await shrink(file);
+          const data = new FormData();
+          data.set('photo', blob, 'photo.jpg');
+          data.set('width', String(width));
+          data.set('height', String(height));
+          data.set('category', category.value);
+          data.set('caption', caption.value);
+          const response = await fetch('/collection/admin/upload', { method: 'POST', body: data });
+          if (!response.ok) {
+            const { error } = await response.json().catch(() => ({ error: '' }));
+            throw new Error(error || 'The upload didn’t finish.');
+          }
+        } catch (error) {
+          const reason = error instanceof Error && error.message !== 'too large' ? error.message : '';
+          status.textContent = `Photo ${index + 1} (${file.name}) couldn’t be added. ${reason} ${
+            index ? `The first ${index} ${index === 1 ? 'is' : 'are'} in The Collection.` : ''
+          }`.trim();
+          button.disabled = false;
+          return;
+        }
+      }
+      location.assign('/collection/admin?notice=added');
+    });
+  }
+</script>
