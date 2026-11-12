@@ -86,6 +86,8 @@ const structuredData = {
     <title>{fullTitle}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={url} />
+    {/* Proves ownership to Google Search Console. Removing it would undo the verification. */}
+    <meta name="google-site-verification" content="Mh7SMeHaDEk6Q2gKp8qDWgv9omGOwE6noFRb82McmZc" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content={siteName} />
     <meta property="og:locale" content="en_GB" />
